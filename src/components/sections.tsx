@@ -29,43 +29,19 @@ export function Hero() {
             </StampedLabel>
 
             <h1 className="display mt-7 text-bone">
-              <span className="block text-[clamp(3.1rem,12vw,10.5rem)]">Boiler &amp;</span>
-              <span className="block text-[clamp(2.25rem,9.2vw,8.1rem)] text-bone/85">
+              <span className="block text-[clamp(3.0rem,12vw,10.5rem)]">Boiler &amp;</span>
+              <span className="block text-[clamp(2.25rem,9.2vw,8.1rem)] text-bone/85 whitespace-nowrap">
                 Pressure Vessel
               </span>
-              <span className="-ml-[0.035em] block text-[clamp(3.6rem,14.5vw,10.6rem)] text-oxide-light">
+              <span className="-ml-[0.035em] block text-[clamp(3.0rem,14.5vw,10.6rem)] text-oxide-light">
                 Repairer
               </span>
             </h1>
 
             <div className="mt-8 grid gap-8 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-              <p className="max-w-[52ch] text-[1.02rem] leading-[1.72] text-bone/80">
-                <span className="text-oxide-light">Freeskills</span> Engineering (M) Sdn Bhd is a trusted provider
-                of comprehensive engineering services, including the alteration, 
-                repair, overhaul, and re-certification of steam boilers and unfired
-                pressure vessels. We also offer the fabrication of general steel and
-                structural components tailored to meet the specific needs of industrial
-                clients across Ipoh, Perak and the northern corridor. Our services are
-                delivered either in-house at our workshop or in alignment with your maintenance
-                and shutdown schedules. We are committed to delivering reliable, high-quality
-                engineering solutions that support your business objectives and contribute to the
-                efficiency and safety of your plant and factory infrastructure.
-              </p>
-              <div className="flex flex-wrap items-center gap-3">
-                <a
-                  href="tel:+60164100464"
-                  className="group inline-flex items-center gap-3 bg-oxide px-6 py-4 font-display text-[1.15rem] uppercase tracking-[0.06em] text-paper transition-colors duration-200 hover:bg-oxide-light"
-                >
-                  <span className="label opacity-70">Tel</span>
-                  +60 16 410 0464
-                </a>
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 border border-bone/25 px-6 py-4 font-display text-[1.15rem] uppercase tracking-[0.06em] text-bone transition-colors duration-200 hover:border-safety hover:text-safety"
-                >
-                  Request a survey
-                </a>
-              </div>
+                <p className="max-w-[52ch] text-[1.02rem] leading-[1.72] text-bone/80 whitespace-pre-line line-clamp-5 sm:text-[1.2rem] sm:leading-[1.8] sm:line-clamp-none">
+                  <span className="font-semibold text-oxide-light">Freeskills</span> Engineering (M) Sdn Bhd is a trusted provider of comprehensive engineering services. We specialize in the alteration, repair, overhaul, and re-certification of steam boilers and unfired pressure vessels. In addition, we fabricate general steel and structural components tailored to meet the specific needs of industrial clients across Ipoh, Perak, and the northern corridor. Our services are delivered either in-house at our workshop or aligned with your maintenance and shutdown schedules. We are committed to delivering reliable, high-quality engineering solutions that support your business goals and ensure the efficiency and safety of your plant and factory infrastructure.
+                </p>
             </div>
           </div>
 
@@ -365,7 +341,7 @@ const COMPLIANCE = [
   ],
   [
     "Hydrostatic test",
-    "Hydrostatic testing is generally required when a repair involves full-penetration welding or major replacement of pressure-retaining components, as this can affect the integrity of the pressure boundary. Key Examples of Repairs Requiring Hydrostatic Testing: Installing butt-welded insert plates (ASME PCC-2 Article 201). Replacing complete vessel shells, heads, or pipe spools (Article 301). Full-thickness flaw excavations and weld repairs. Welded Repairs Following PWHT: Under ASME Section VIII, Division 1, if weld repairs are done after final Postweld Heat Treatment (PWHT), the vessel must undergo hydrostatic re-testing after the repair is completed to ensure safety and integrity. Non-Penetrating Repairs (Exempt from Hydrostatic Testing): Under ASME PCC-2 Article 502-2.4, hydrostatic testing is not required for minor repairs that do not penetrate the pressure boundary, such as: Non-pressure-penetrating welding or hard surfacing Weld overlay or cladding repairs. Seal welds on threaded joints or tubes. Heat exchanger tube plugging, sleeving, or tube-to-tubesheet welds, provided that less than 10% of the tubes are replaced.",
+    "Hydrostatic testing is generally required when a repair involves full-penetration welding or major replacement of pressure-retaining components, as this can affect the integrity of the pressure boundary. PWHT: Under ASME Section VIII, Division 1, if weld repairs are done after final Postweld Heat Treatment (PWHT), the vessel must undergo hydrostatic re-testing after the repair is completed to ensure safety and integrity. For Non-Penetrating Repairs (Exempt from Hydrostatic Testing): Under ASME PCC-2 Article 502-2.4, hydrostatic testing is not required for minor repairs that do not penetrate the pressure boundary, such as: Non-pressure-penetrating welding or hard surfacing Weld overlay or cladding repairs. Seal welds on threaded joints or tubes. Heat exchanger tube plugging, sleeving, or tube-to-tubesheet welds, provided that less than 10% of the tubes are replaced.",
   ],
   [
     "Safety valve accumulation test",

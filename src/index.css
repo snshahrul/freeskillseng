@@ -43,11 +43,19 @@ body {
 /* --- stamped micro-label: the signature typographic detail --- */
 .label {
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.78rem;
   line-height: 1.1;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 500;
+}
+
+/* site chrome: the header and footer micro-labels read larger than the
+   stamped section labels. This rule is unlayered and more specific than
+   `.label`, so it wins without touching the rest of the page. */
+header .label,
+footer .label {
+  font-size: 0.8rem;
 }
 
 .tnum {

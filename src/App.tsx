@@ -50,15 +50,15 @@ function Header() {
           <img
             src="images/logo.png"
             alt=""
-            width={80}
-            height={51}
+            width={70}
+            height={41}
             className="h-9 w-auto"
           />
           <span className="leading-none">
-            <span className="block font-display text-[1.02rem] uppercase leading-none tracking-[0.07em] text-bone sm:text-[1.18rem] sm:tracking-[0.09em]">
+            <span className="block font-display text-[1.45rem] uppercase leading-none tracking-[0.07em] text-bone sm:text-[1.25rem] sm:tracking-[0.09em]">
               <span className="text-oxide-light">Freeskills</span> Engineering
             </span>
-            <span className="label mt-1.5 block text-bone/60">
+            <span className="label mt-1.25 block text-bone/60">
               (M) Sdn Bhd · 1502941-H
             </span>
           </span>
@@ -76,16 +76,6 @@ function Header() {
           ))}
         </nav>
 
-        <a
-          href="tel:+60164100464"
-          className="flex items-center gap-2 bg-oxide px-4 py-2.5 font-mono text-[0.78rem] tracking-[0.06em] text-paper transition-colors duration-200 hover:bg-oxide-light sm:px-5"
-        >
-          <span className="label opacity-80">Tel</span>
-          <span className="tnum hidden sm:inline">+60 16 410 0464</span>
-          <span className="font-display text-[1.05rem] uppercase tracking-[0.08em] sm:hidden">
-            Call
-          </span>
-        </a>
       </div>
     </header>
   );
@@ -102,18 +92,18 @@ function Footer() {
               <img
                 src="images/logo.png"
                 alt=""
-                width={80}
-                height={51}
+                width={70}
+                height={41}
                 className="h-11 w-auto"
               />
               <div>
-                <div className="font-display text-[1.5rem] uppercase leading-none tracking-[0.07em]">
+                <div className="font-display text-[1.45rem] uppercase leading-none tracking-[0.07em]">
                   <span className="text-oxide-light">Freeskills</span> Engineering
                 </div>
                 <div className="label mt-1.5 text-bone/50">(M) Sdn Bhd · 1502941-H</div>
               </div>
             </div>
-            <p className="mt-6 max-w-[42ch] text-[0.95rem] leading-[1.72] text-bone/65">
+            <p className="mt-6 max-w-[42ch] text-[1.08rem] leading-[1.72] text-bone/65">
               Boiler and pressure vessel repairer and general fabrication of steel structures.
               Workshop and on-site service from Menglembu, Ipoh, Perak.
             </p>
@@ -121,14 +111,14 @@ function Footer() {
 
           <div>
             <div className="label text-safety">Works address</div>
-            <address className="mt-4 whitespace-pre-line font-mono text-[0.78rem] not-italic leading-[1.85] tracking-[0.05em] text-bone/70">
+            <address className="mt-4 whitespace-pre-line font-mono text-[0.92rem] not-italic leading-[1.85] tracking-[0.05em] text-bone/70">
               {"Lot 01 & 02, Hala Perusahaan Kledang Utara 6,\nMenglembu, 31450 Ipoh,\nPerak Darul Ridzuan, Malaysia"}
             </address>
           </div>
 
           <div>
             <div className="label text-safety">Contact</div>
-            <ul className="mt-4 space-y-2 font-mono text-[0.78rem] tracking-[0.05em] text-bone/70">
+            <ul className="mt-4 space-y-2 font-mono text-[0.92rem] tracking-[0.05em] text-bone/70">
               <li>
                 <a
                   href="tel:+60164100464"

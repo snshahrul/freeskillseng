@@ -1,6 +1,8 @@
 node_modules
 dist
 .freebuff
+.vercel
+.env*
 *.local
 .DS_Store
 npm-debug.log*

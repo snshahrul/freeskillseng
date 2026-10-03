@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { LocalitySchematic, Nameplate, Reveal, StampedLabel } from "./graphics";
+import { Nameplate, Reveal, StampedLabel } from "./graphics";
+import { LocationMap } from "./map";
 
 /* ================================================================== */
 /*  HERO                                                               */
@@ -537,13 +538,13 @@ export function Contact() {
             </p>
           </div>
 
-          {/* locality schematic */}
+          {/* live locality map */}
           <div>
             <div className="grain relative overflow-hidden border border-ink/20 bg-paper">
-              <LocalitySchematic className="block h-auto w-full" />
+              <LocationMap className="h-[22rem] w-full sm:h-[26rem]" />
             </div>
             <div className="mt-4 flex flex-wrap items-baseline justify-between gap-4 border-t border-ink/20 pt-4">
-              <p className="label text-ink/55">Locality schematic — not to scale</p>
+              <p className="label text-ink/55">Interactive map · OpenStreetMap</p>
               <p className="font-mono text-[0.72rem] tracking-[0.06em] text-ink/70">
                 4.5685° N, 101.0367° E
               </p>

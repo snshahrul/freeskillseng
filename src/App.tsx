@@ -56,7 +56,7 @@ function Header() {
           />
           <span className="leading-none">
             <span className="block font-display text-[1.02rem] uppercase leading-none tracking-[0.07em] text-bone sm:text-[1.18rem] sm:tracking-[0.09em]">
-              Freeskills Engineering
+              <span className="text-oxide-light">Freeskills</span> Engineering
             </span>
             <span className="label mt-1.5 block text-bone/60">
               (M) Sdn Bhd · 1502941-H
@@ -108,7 +108,7 @@ function Footer() {
               />
               <div>
                 <div className="font-display text-[1.5rem] uppercase leading-none tracking-[0.07em]">
-                  Freeskills Engineering
+                  <span className="text-oxide-light">Freeskills</span> Engineering
                 </div>
                 <div className="label mt-1.5 text-bone/50">(M) Sdn Bhd · 1502941-H</div>
               </div>

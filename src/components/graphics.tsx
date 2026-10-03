@@ -95,8 +95,13 @@ export function StampedLabel({
 /*  Riveted brushed-steel data plate — the memorable moment             */
 /* ------------------------------------------------------------------ */
 export function Nameplate() {
-  const rows: [string, string][] = [
-    ["COMPANY", "FREESKILLS ENGINEERING (M) SDN BHD"],
+  const rows: [string, ReactNode][] = [
+    [
+      "COMPANY",
+      <>
+        <span className="text-oxide-light">FREESKILLS</span> ENGINEERING (M) SDN BHD
+      </>,
+    ],
     ["REG. NO.", "1502941-H"],
     ["CLASS", "BOILER & PRESSURE VESSEL REPAIRER"],
     ["WORKS", "LOT 01 & 02, HALA PERUSAHAAN KLEDANG UTARA 6"],
@@ -130,108 +135,5 @@ export function Nameplate() {
         </p>
       </div>
     </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Locality schematic — hand-drawn SVG, not an embedded map            */
-/* ------------------------------------------------------------------ */
-export function LocalitySchematic({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 640 400"
-      className={className}
-      role="img"
-      aria-label="Schematic location diagram of the Freeskills Engineering workshop in Menglembu, Ipoh"
-    >
-      <defs>
-        <pattern id="fsGrid" width="26" height="26" patternUnits="userSpaceOnUse">
-          <path d="M26 0 H0 V26" fill="none" stroke="#22262a" strokeOpacity="0.12" strokeWidth="1" />
-        </pattern>
-        <marker id="fsArrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
-          <path d="M0 0 L9 4.5 L0 9 Z" fill="#22262a" fillOpacity="0.55" />
-        </marker>
-      </defs>
-
-      <rect width="640" height="400" fill="#ede9e1" />
-      <rect width="640" height="400" fill="url(#fsGrid)" />
-
-      {/* Bukit Kledang ridge — contour hatching */}
-      <g stroke="#7c847f" strokeWidth="1.1" fill="none" opacity="0.6">
-        <path d="M20 300 C60 250 90 220 120 232 C150 244 168 286 150 318" />
-        <path d="M42 316 C74 276 96 254 120 262 C142 270 154 300 142 326" />
-        <path d="M64 330 C88 302 104 288 120 292 C136 298 142 316 136 334" />
-      </g>
-      <text x="34" y="366" className="label" fill="#22262a" fillOpacity="0.55" fontSize="11" letterSpacing="2.2">
-        BUKIT KLEDANG
-      </text>
-
-      {/* expressway */}
-      <path
-        d="M-10 66 C120 88 210 60 300 24"
-        stroke="#22262a"
-        strokeOpacity="0.35"
-        strokeWidth="7"
-        fill="none"
-      />
-      <text x="120" y="42" className="label" fill="#22262a" fillOpacity="0.5" fontSize="11" letterSpacing="2.2">
-        NORTH–SOUTH EXPRESSWAY (E1)
-      </text>
-
-      {/* main road */}
-      <path d="M0 176 H640" stroke="#22262a" strokeOpacity="0.55" strokeWidth="9" fill="none" />
-      <path d="M0 176 H640" stroke="#ede9e1" strokeWidth="1.4" strokeDasharray="14 12" fill="none" />
-      <text x="18" y="164" className="label" fill="#22262a" fillOpacity="0.7" fontSize="11" letterSpacing="2.2">
-        JALAN MENGLEMBU
-      </text>
-
-      {/* industrial estate grid */}
-      <g transform="rotate(-9 380 280)">
-        <g stroke="#22262a" strokeOpacity="0.32" strokeWidth="4" fill="none">
-          <path d="M210 232 H620" />
-          <path d="M210 288 H620" />
-          <path d="M210 344 H620" />
-        </g>
-        <text x="216" y="226" className="label" fill="#22262a" fillOpacity="0.72" fontSize="12" letterSpacing="2.6">
-          HALA PERUSAHAAN KLEDANG UTARA 6
-        </text>
-        <text x="216" y="282" className="label" fill="#22262a" fillOpacity="0.4" fontSize="11" letterSpacing="2.2">
-          HALA PERUSAHAAN KLEDANG UTARA 4
-        </text>
-      </g>
-
-      {/* workshop pin */}
-      <g>
-        <line x1="352" y1="252" x2="352" y2="176" stroke="#c4441f" strokeWidth="2" strokeDasharray="5 5" />
-        <rect x="316" y="238" width="72" height="30" fill="#c4441f" />
-        <rect x="322" y="244" width="60" height="18" fill="none" stroke="#ede9e1" strokeWidth="1" strokeOpacity="0.6" />
-        <text x="352" y="257" textAnchor="middle" fill="#ede9e1" fontSize="11" letterSpacing="2" fontFamily="IBM Plex Mono, monospace">
-          LOT 01/02
-        </text>
-        <circle cx="352" cy="222" r="5.5" fill="#c4441f" />
-        <circle cx="352" cy="222" r="11" fill="none" stroke="#c4441f" strokeWidth="1.2" strokeOpacity="0.5" />
-      </g>
-
-      {/* direction arrows */}
-      <g stroke="#22262a" strokeOpacity="0.55" strokeWidth="2" fill="none">
-        <line x1="500" y1="140" x2="612" y2="140" markerEnd="url(#fsArrow)" />
-        <line x1="120" y1="140" x2="30" y2="140" markerEnd="url(#fsArrow)" />
-      </g>
-      <text x="500" y="128" className="label" fill="#22262a" fillOpacity="0.6" fontSize="11" letterSpacing="2.2">
-        IPOH CITY 8 KM
-      </text>
-      <text x="30" y="128" className="label" fill="#22262a" fillOpacity="0.6" fontSize="11" letterSpacing="2.2">
-        SIMPANG PULAI
-      </text>
-
-      {/* compass */}
-      <g transform="translate(596 352)">
-        <circle r="22" fill="none" stroke="#22262a" strokeOpacity="0.35" strokeWidth="1.2" />
-        <path d="M0 -16 L6 8 L0 2 L-6 8 Z" fill="#22262a" fillOpacity="0.75" />
-        <text y="-24" textAnchor="middle" fill="#22262a" fillOpacity="0.6" fontSize="11" letterSpacing="1.6" fontFamily="IBM Plex Mono, monospace">
-          N
-        </text>
-      </g>
-    </svg>
   );
 }

@@ -1,4 +1,3 @@
-import { Mark } from "./components/graphics";
 import {
   Capability,
   Compliance,
@@ -48,7 +47,13 @@ function Header() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-steel-900/92 backdrop-blur-sm">
       <div className="mx-auto flex h-16 w-full max-w-[86rem] items-center justify-between gap-6 px-5 sm:px-8">
         <a href="#top" className="flex items-center gap-3">
-          <Mark className="h-9 w-9 text-oxide-light" />
+          <img
+            src="images/logo.png"
+            alt=""
+            width={80}
+            height={51}
+            className="h-9 w-auto"
+          />
           <span className="leading-none">
             <span className="block font-display text-[1.02rem] uppercase leading-none tracking-[0.07em] text-bone sm:text-[1.18rem] sm:tracking-[0.09em]">
               Freeskills Engineering
@@ -94,7 +99,13 @@ function Footer() {
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)_minmax(0,1fr)]">
           <div>
             <div className="flex items-center gap-3">
-              <Mark className="h-11 w-11 text-oxide-light" />
+              <img
+                src="images/logo.png"
+                alt=""
+                width={80}
+                height={51}
+                className="h-11 w-auto"
+              />
               <div>
                 <div className="font-display text-[1.5rem] uppercase leading-none tracking-[0.07em]">
                   Freeskills Engineering

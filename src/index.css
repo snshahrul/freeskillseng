@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@theme {
+  --color-steel-900: #14181c;
+  --color-steel-800: #1d242b;
+  --color-steel-700: #2a333b;
+  --color-paper: #ede9e1;
+  --color-paper-rule: #dcd5c8;
+  --color-oxide: #c4441f;
+  --color-oxide-light: #e2603a;
+  --color-oxide-dark: #8e2c12;
+  --color-warmgrey: #7c847f;
+  --color-safety: #f2b705;
+  --color-bone: #e7e2d8;
+  --color-ink: #22262a;
+
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-body: "Archivo", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: #14181c;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #c4441f;
+  color: #ede9e1;
+}
+
+/* --- stamped micro-label: the signature typographic detail --- */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  line-height: 1.1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.84;
+  letter-spacing: -0.005em;
+}
+
+/* --- surfaces --- */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.plate {
+  background-image: linear-gradient(
+      118deg,
+      #2f3941 0%,
+      #262e35 18%,
+      #39434b 34%,
+      #232a30 52%,
+      #333c44 70%,
+      #20272d 88%,
+      #2c353c 100%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.05) 0px,
+      rgba(255, 255, 255, 0.05) 1px,
+      rgba(0, 0, 0, 0) 1px,
+      rgba(0, 0, 0, 0) 3px
+    );
+}
+
+.rivet {
+  background-image: radial-gradient(circle at 32% 28%, #7c8890 0%, #4c565e 45%, #222a30 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.35),
+    0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.paper-rule {
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(34, 38, 42, 0.055) 0px,
+    rgba(34, 38, 42, 0.055) 1px,
+    transparent 1px,
+    transparent 28px
+  );
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #f2b705;
+  outline-offset: 3px;
+}
+
+.vlabel {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* hairline that draws itself in */
+@keyframes ruleDraw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.rule-draw {
+  transform-origin: left center;
+  animation: ruleDraw 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}

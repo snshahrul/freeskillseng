@@ -103,6 +103,7 @@ export function Nameplate() {
       </>,
     ],
     ["REG. NO.", "1502941-H"],
+    ["FAC. REG. NO.", "JKKP/PK/2026/265610"],
     ["CLASS", "BOILER & PRESSURE VESSEL REPAIRER"],
     ["WORKS", "LOT 01 & 02, HALA PERUSAHAAN KLEDANG UTARA 6"],
     ["DISTRICT", "MENGLEMBU 31450 · IPOH · PERAK"],
@@ -131,7 +132,7 @@ export function Nameplate() {
           ))}
         </dl>
         <p className="mt-4 font-mono text-[0.62rem] leading-relaxed tracking-[0.14em] text-bone/45">
-          REPAIR · OVERHAUL · FABRICATION · HYDROSTATIC TESTING · ON-SITE WELDING
+          ALTERATION · REPAIR · OVERHAUL · GENERAL FABRICATION · HYDROSTATIC TESTING · ON-SITE WELDING
         </p>
       </div>
     </div>

@@ -33,17 +33,23 @@ export function Hero() {
               <span className="block text-[clamp(2.25rem,9.2vw,8.1rem)] text-bone/85">
                 Pressure Vessel
               </span>
-              <span className="-ml-[0.035em] block text-[clamp(3.6rem,14.5vw,12.6rem)] text-oxide-light">
-                Repair
+              <span className="-ml-[0.035em] block text-[clamp(3.6rem,14.5vw,10.6rem)] text-oxide-light">
+                Repairer
               </span>
             </h1>
 
             <div className="mt-8 grid gap-8 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
               <p className="max-w-[52ch] text-[1.02rem] leading-[1.72] text-bone/80">
-                Freeskills Engineering (M) Sdn Bhd repairs, overhauls and re-certifies steam
-                boilers and unfired pressure vessels, and fabricates general steel structures
-                for factories and plants across Ipoh, Perak and the northern corridor — in our
-                Menglembu workshop or on your shutdown schedule.
+                <span className="text-oxide-light">Freeskills</span> Engineering (M) Sdn Bhd is a trusted provider
+                of comprehensive engineering services, including the alteration, 
+                repair, overhaul, and re-certification of steam boilers and unfired
+                pressure vessels. We also offer the fabrication of general steel and
+                structural components tailored to meet the specific needs of industrial
+                clients across Ipoh, Perak and the northern corridor. Our services are
+                delivered either in-house at our workshop or in alignment with your maintenance
+                and shutdown schedules. We are committed to delivering reliable, high-quality
+                engineering solutions that support your business objectives and contribute to the
+                efficiency and safety of your plant and factory infrastructure.
               </p>
               <div className="flex flex-wrap items-center gap-3">
                 <a
@@ -102,13 +108,24 @@ export function Hero() {
 /* ================================================================== */
 /*  CAPABILITY SCHEDULE — the full-bleed ruled table                    */
 /* ================================================================== */
-const CAPABILITIES = [
+type CapabilityRow = {
+  idx: string;
+  code: string;
+  title: string;
+  desc: string;
+  out: string;
+  /** optional full-row background image, served from /public */
+  bg?: string;
+};
+
+const CAPABILITIES: CapabilityRow[] = [
   {
     idx: "01",
     code: "BPV-01",
     title: "Boiler Repair & Overhaul",
     desc: "Shell and furnace plate replacement, tube renewal, tube plate re-boring, end plate repair, refractory renewal, safety valve overhaul and hydraulic testing before return to service.",
     out: "Fire-tube · smoke-tube · water-tube",
+    bg: "package boiler.jpg",
   },
   {
     idx: "02",
@@ -123,6 +140,7 @@ const CAPABILITIES = [
     title: "Steel Structure Fabrication",
     desc: "Design-and-build platforms, mezzanines, staircases, handrails, machine bases, canopies and structural steel frames — cut, fitted, welded and painted in-house.",
     out: "Mild steel · galvanised · stainless",
+    bg: "structure.jpg",
   },
   {
     idx: "04",
@@ -130,6 +148,7 @@ const CAPABILITIES = [
     title: "Pressure & Process Piping",
     desc: "Steam, condensate, compressed air and process line fabrication, installation and repair, including pipe supports, manifolds, expansion loops and valve station work.",
     out: "Schedule 40 / 80 carbon steel",
+    bg: "silo.jpg",
   },
   {
     idx: "05",
@@ -137,6 +156,7 @@ const CAPABILITIES = [
     title: "Tank, Chute & Ducting Fabrication",
     desc: "Storage and mixing tanks, hoppers, chutes, cyclones, jacketed vessels and ducting for dust and fume extraction, with plate rolling, forming and site erection.",
     out: "Plate rolling · forming · welding",
+    bg: "chimny.jpg",
   },
   {
     idx: "06",
@@ -184,7 +204,16 @@ export function Capability() {
       <div className="mx-auto w-full max-w-[86rem] px-5 pb-28 sm:px-8">
         {CAPABILITIES.map((c, i) => (
           <Reveal key={c.code} delay={i * 0.045}>
-            <div className="group grid grid-cols-1 gap-x-6 gap-y-3 border-b border-ink/15 px-1 py-7 transition-colors duration-200 hover:bg-ink hover:text-paper md:grid-cols-[3.2rem_7.5rem_minmax(0,1fr)_minmax(0,1.15fr)] md:items-baseline">
+            <div className="group relative isolate grid grid-cols-1 gap-x-6 gap-y-3 overflow-hidden border-b border-ink/15 px-1 py-7 transition-colors duration-200 hover:bg-ink hover:text-paper md:grid-cols-[3.2rem_7.5rem_minmax(0,1fr)_minmax(0,1.15fr)] md:items-baseline">
+              {c.bg && (
+                <img
+                  src={c.bg}
+                  alt=""
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-[0.2]"
+                  loading="lazy"
+                />
+              )}
               <div className="label tnum text-oxide transition-colors duration-200 group-hover:text-safety">
                 {c.idx}
               </div>
@@ -327,8 +356,16 @@ const COMPLIANCE = [
     "No person shall manufacture, fabricate, test, install, maintain, dismantle or repair prescribed machinery without written authority from the Chief Inspector.",
   ],
   [
-    "Hydrostatic test certificate",
-    "Vessels are tested hydrostatically for a period of not less than twenty minutes with no leakage or undue deflection or distortion of its parts, witnessed and recorded.",
+    "ASME PCC-2 — Repair of Pressure Equipment & Piping",
+    "Guidelines for the inspection, evaluation, and repair of pressure-containing components and industrial piping systems. It is specifically designed to help engineers and technicians assess the integrity, safety, and reliability of pressure equipment such as boilers, pressure vessels, and pipelines.",
+  ],
+  [
+    "NBIC — National Board Inspection Code & Other Post-Construction Codes",
+    "For inspecting, evaluating, and repairing pressure vessels and boilers, particularly in power generation and industrial facilities. It is internationally recognized and provides a systematic approach to the assessment of damage and defects in pressure equipment, ensuring safety, compliance, and extended service life.",
+  ],
+  [
+    "Hydrostatic test",
+    "Hydrostatic testing is generally required when a repair involves full-penetration welding or major replacement of pressure-retaining components, as this can affect the integrity of the pressure boundary. Key Examples of Repairs Requiring Hydrostatic Testing: Installing butt-welded insert plates (ASME PCC-2 Article 201). Replacing complete vessel shells, heads, or pipe spools (Article 301). Full-thickness flaw excavations and weld repairs. Welded Repairs Following PWHT: Under ASME Section VIII, Division 1, if weld repairs are done after final Postweld Heat Treatment (PWHT), the vessel must undergo hydrostatic re-testing after the repair is completed to ensure safety and integrity. Non-Penetrating Repairs (Exempt from Hydrostatic Testing): Under ASME PCC-2 Article 502-2.4, hydrostatic testing is not required for minor repairs that do not penetrate the pressure boundary, such as: Non-pressure-penetrating welding or hard surfacing Weld overlay or cladding repairs. Seal welds on threaded joints or tubes. Heat exchanger tube plugging, sleeving, or tube-to-tubesheet welds, provided that less than 10% of the tubes are replaced.",
   ],
   [
     "Safety valve accumulation test",
@@ -403,19 +440,19 @@ export function Compliance() {
 /*  JOB FLOW                                                            */
 /* ================================================================== */
 const FLOW = [
-  ["01", "Survey & assessment", "Site attendance, thickness and visual findings review, and identification of defects against the current certificate of fitness."],
-  ["02", "Scope & quotation", "Written scope of work, material specification, method statement and a schedule agreed with your plant team."],
-  ["03", "Repair / fabrication", "Cutting, forming, fit-up and welding in the Menglembu workshop or on-site within your shutdown window."],
-  ["04", "Test & inspection", "Hydrostatic testing, safety valve setting, weld inspection and coordination with the appointed inspector."],
-  ["05", "Handover & records", "Reinstatement, registration plate marking, test certificates and job records issued for your maintenance file."],
+  ["01", "Survey & assessment", "Site attendance to conduct thorough defect assessments, perform thickness measurements, and review visual findings, ensuring precise identification of defects in alignment with the current Certificate of Fitness."],
+  ["02", "Scope & quotation", "Written scope of work, material specification, method statement, inspection test plans and a schedule agreed with your plant team and safety requirements."],
+  ["03", "Repair / fabrication", "Cutting, Rolling, forming, fit-up and welding in the Menglembu workshop or on-site within your shutdown window."],
+  ["04", "Test & inspection", "Hydrostatic testing, Bubble testing, safety valve setting, weld inspection and coordination with the appointed person or authorized inspector."],
+  ["05", "Handover & records", "Reinstatement, test certificates and job records issued for your maintenance file and traceable records for your insurer and the appointed inspector."],
 ];
 
 export function Flow() {
   return (
     <section id="flow" className="relative scroll-mt-20 overflow-hidden bg-steel-900 text-bone">
       <img
-        src="images/plate-stock.jpg"
-        alt="Steel plate stock and profile cutting with sparks in the fabrication workshop"
+        src="package boiler.jpg"
+        alt="Package boiler"
         className="absolute inset-0 h-full w-full object-cover opacity-[0.22]"
         loading="lazy"
       />

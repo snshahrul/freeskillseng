@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   Capability,
@@ -10,6 +10,7 @@ import {
   Safety,
   Works,
 } from "./components/sections";
+import { CompanyProfileModal } from "./components/graphics";
 
 const NAV: [string, string][] = [
   ["Capability", "#capability"],
@@ -19,6 +20,15 @@ const NAV: [string, string][] = [
   ["Safety", "#safety"],
   ["Job flow", "#flow"],
   ["Contact", "#contact"],
+];
+
+/* dropdown under the Capability nav button */
+const CAP_SUB: [string, string][] = [
+  ["Infrastructure & facilities", "#infrastructure"],
+  ["Equipment", "#equipment"],
+  ["Quality Management System", "#qms"],
+  ["Safety & Health", "#safety"],
+  ["Experience", "#works"],
 ];
 
 /* ---------------- fixed left spec rail (desktop) ---------------- */
@@ -51,6 +61,7 @@ function SpecRail() {
 function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [active, setActive] = useState("");
   const reduce = useReducedMotion();
 
@@ -100,6 +111,7 @@ function Header() {
   }, [menuOpen]);
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md transition-all duration-300 ${
         scrolled || menuOpen
@@ -108,27 +120,118 @@ function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 w-full max-w-[86rem] items-center justify-between gap-5 px-5 sm:px-8 lg:h-[4.75rem]">
-        <a href="#top" className="flex shrink-0 items-center gap-3">
-          <img
-            src="images/logo.png"
-            alt=""
-            width={70}
-            height={41}
-            className="h-9 w-auto sm:h-10"
-          />
-          <span className="leading-none">
-            <span className="block font-display text-[1.15rem] uppercase leading-none tracking-[0.06em] text-bone sm:text-[1.25rem] lg:text-[1.35rem]">
-              <span className="text-oxide-light">Freeskills</span> Engineering
+        <div className="flex shrink-0 items-center gap-2.5 sm:gap-3.5">
+          <a href="#top" className="flex items-center gap-3">
+            <img
+              src="images/logo.png"
+              alt=""
+              width={70}
+              height={41}
+              className="h-9 w-auto sm:h-10"
+            />
+            <span className="leading-none">
+              <span className="block font-display text-[1.15rem] uppercase leading-none tracking-[0.06em] text-bone sm:text-[1.25rem] lg:text-[1.35rem]">
+                <span className="text-oxide-light">Freeskills</span> Engineering
+              </span>
+              <span className="mt-1.5 block font-mono text-[0.62rem] uppercase leading-none tracking-[0.14em] text-bone/55 lg:text-[0.66rem]">
+                (M) Sdn Bhd · 1502941-H
+              </span>
             </span>
-            <span className="mt-1.5 block font-mono text-[0.62rem] uppercase leading-none tracking-[0.14em] text-bone/55 lg:text-[0.66rem]">
-              (M) Sdn Bhd · 1502941-H
-            </span>
-          </span>
-        </a>
+          </a>
+
+          {/* small button on the logo — opens Company Background & Profile */}
+          <button
+            type="button"
+            onClick={() => {
+              setMenuOpen(false);
+              setProfileOpen(true);
+            }}
+            aria-haspopup="dialog"
+            aria-label="Company background and profile"
+            title="Company Background & Profile"
+            className="group inline-flex h-8 shrink-0 items-center justify-center gap-1.5 border border-white/10 bg-transparent px-2 text-bone/35 transition-colors duration-200 hover:border-safety/60 hover:text-safety/80 sm:h-9 sm:gap-2 sm:px-3"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="h-4 w-4 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 11v5" />
+              <path d="M12 7.75h.01" />
+            </svg>
+            <span className="label hidden sm:inline">Profile</span>
+          </button>
+        </div>
 
         <nav className="hidden items-center gap-5 xl:flex" aria-label="Primary">
           {NAV.map(([label, href]) => {
             const on = active === href.slice(1);
+
+            /* Capability carries a dropdown of related sections */
+            if (label === "Capability") {
+              return (
+                <div key={href} className="group relative">
+                  <a
+                    href={href}
+                    aria-current={on ? "true" : undefined}
+                    className={`label relative flex items-center gap-1.5 py-2 transition-colors duration-200 ${
+                      on ? "text-bone" : "text-bone/55 hover:text-safety"
+                    }`}
+                  >
+                    {label}
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-3 w-3 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                    <span
+                      aria-hidden="true"
+                      className={`absolute inset-x-0 -bottom-0.5 h-[2px] origin-left bg-oxide transition-transform duration-300 ${
+                        on ? "scale-x-100" : "scale-x-0"
+                      }`}
+                    />
+                  </a>
+
+                  {/* dropdown — opens on hover or keyboard focus */}
+                  <div className="invisible absolute left-0 top-full z-20 mt-1 w-[17rem] origin-top translate-y-1 border border-white/10 bg-steel-900/95 py-1.5 opacity-0 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.9)] backdrop-blur-md transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                    {CAP_SUB.map(([subLabel, subHref]) => (
+                      <a
+                        key={subHref}
+                        href={subHref}
+                        className="flex items-center justify-between gap-3 px-4 py-2.5 text-[0.9rem] leading-snug text-bone/65 transition-colors duration-150 hover:bg-white/5 hover:text-safety"
+                      >
+                        {subLabel}
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-3.5 w-3.5 shrink-0 text-bone/35"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <path d="M5 12h14M13 6l6 6-6 6" />
+                        </svg>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+
             return (
               <a
                 key={href}
@@ -201,17 +304,45 @@ function Header() {
               aria-label="Menu"
             >
               {NAV.map(([label, href], i) => (
-                <a
-                  key={href}
-                  href={href}
-                  onClick={() => setMenuOpen(false)}
-                  className="group flex items-center justify-between border-b border-white/10 py-4 font-display text-[1.45rem] uppercase leading-none tracking-[0.04em] text-bone transition-colors duration-200 hover:text-safety"
-                >
-                  {label}
-                  <span className="label tnum text-bone/40 transition-colors group-hover:text-safety/80">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                </a>
+                <Fragment key={href}>
+                  <a
+                    href={href}
+                    onClick={() => setMenuOpen(false)}
+                    className="group flex items-center justify-between border-b border-white/10 py-4 font-display text-[1.45rem] uppercase leading-none tracking-[0.04em] text-bone transition-colors duration-200 hover:text-safety"
+                  >
+                    {label}
+                    <span className="label tnum text-bone/40 transition-colors group-hover:text-safety/80">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </a>
+                  {label === "Capability" && (
+                    <ul className="border-b border-white/10 py-1.5 pl-4">
+                      {CAP_SUB.map(([subLabel, subHref]) => (
+                        <li key={subHref}>
+                          <a
+                            href={subHref}
+                            onClick={() => setMenuOpen(false)}
+                            className="flex items-center justify-between gap-3 py-2.5 pr-1 font-mono text-[0.92rem] tracking-[0.05em] text-bone/60 transition-colors duration-150 hover:text-safety"
+                          >
+                            {subLabel}
+                            <svg
+                              viewBox="0 0 24 24"
+                              className="h-4 w-4 shrink-0 text-bone/35"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.8"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              aria-hidden="true"
+                            >
+                              <path d="M5 12h14M13 6l6 6-6 6" />
+                            </svg>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </Fragment>
               ))}
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <a
@@ -233,6 +364,10 @@ function Header() {
         )}
       </AnimatePresence>
     </header>
+
+    {/* company background & profile popup, opened from the logo button */}
+    <CompanyProfileModal open={profileOpen} onClose={() => setProfileOpen(false)} />
+    </>
   );
 }
 

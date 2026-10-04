@@ -476,3 +476,225 @@ className="plate grain relative flex max-h-[88vh] w-full max-w-5xl flex-col over
     </AnimatePresence>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/*  Company Background & Profile — opens from the header logo button    */
+/* ------------------------------------------------------------------ */
+const PROFILE_PARTICULARS: [string, string][] = [
+  ["Legal name", "Freeskills Engineering (M) Sdn Bhd"],
+  ["Reg. no.", "1502941-H"],
+  ["Facility reg.", "JKKP/PK/2026/265610"],
+  ["Class", "Boiler & pressure vessel repairer"],
+  ["Statute", "Factories & Machinery Act 1967"],
+  ["Works address", "Lot 01 & 02, Hala Perusahaan Kledang Utara 6, Menglembu 31450, Ipoh, Perak"],
+  ["Telephone", "+60 16 410 0464"],
+  ["Hours", "Monday – Saturday, 8:30 am – 6:00 pm"],
+];
+
+const PROFILE_SCOPE: string[] = [
+  "Alteration",
+  "Repair",
+  "Overhaul",
+  "General fabrication",
+  "Hydrostatic testing",
+  "On-site welding",
+];
+
+const PROFILE_STORY: { idx: string; title: string; body: string }[] = [
+  {
+    idx: "01",
+    title: "A repair company, not a fabrication shop for hire",
+    body:
+      "Boilers and unfired pressure vessels do not fail politely — a cracked tube plate or corroded shell stops production and, under the Factories & Machinery Act 1967, puts the plant's Certificate of Fitness at risk. Freeskills exists to close that gap: plate-up repair and overhaul in the workshop or on site, hydrostatic testing, and re-certification coordinated with DOSH inspection.",
+  },
+  {
+    idx: "02",
+    title: "One workshop, six working lines",
+    body:
+      "Three covered bays at Lot 01 & 02 carry plate and cylinder storage, fit-up and assembly. CNC laser cutting, three-roll plate rolling to 12.7 mm and in-house machining keep fabrication under one roof, while SMAW, GTAW and GMAW welding runs to approved WPS with calibrated thickness survey and flaw detection.",
+  },
+  {
+    idx: "03",
+    title: "A system, not a promise",
+    body:
+      "Every job moves through the Quality Management Center — written scope, method statement and ITP, welding procedure and welder qualification records, inspection and test reports, then a signed handover pack. Records live in one place at qmc.freeskillengineering.com.",
+  },
+  {
+    idx: "04",
+    title: "The people behind the plate",
+    body:
+      "Led by Managing Director Ahmad Nazwan Bin Mohd Sarbini, the team pairs 25+ years of ASME Section VIII, IX, V and II experience in QAQC and engineering with construction, project and OSH management, certified welders and site supervisors — the same names listed on the organisation chart.",
+  },
+];
+
+export function CompanyProfileModal({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  const reduce = useReducedMotion();
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  /* lock scroll, close on Escape, focus the close button */
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    closeRef.current?.focus();
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open, onClose]);
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          key="company-profile-backdrop"
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-steel-900/90 p-3 backdrop-blur-sm sm:p-6"
+          initial={reduce ? undefined : { opacity: 0 }}
+          animate={reduce ? undefined : { opacity: 1 }}
+          exit={reduce ? undefined : { opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) onClose();
+          }}
+        >
+          <motion.div
+            id="company-profile-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="company-profile-title"
+            className="plate grain relative flex max-h-[88vh] w-full max-w-4xl flex-col overflow-hidden rounded-[3px] border border-white/15 shadow-[0_40px_90px_-25px_rgba(0,0,0,0.9)]"
+            initial={reduce ? undefined : { opacity: 0, y: 14, scale: 0.985 }}
+            animate={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
+            exit={reduce ? undefined : { opacity: 0, y: 10, scale: 0.99 }}
+            transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {/* header — close button stays visible while the body scrolls */}
+            <div className="flex shrink-0 items-start justify-between gap-5 border-b border-white/15 px-5 py-5 sm:px-8">
+              <div className="min-w-0">
+                <span className="label text-safety">Company background · Profile</span>
+                <h2
+                  id="company-profile-title"
+                  className="display mt-2.5 text-[clamp(1.5rem,4vw,2.35rem)] text-bone"
+                >
+                  Company Background &amp; Profile
+                </h2>
+              </div>
+              <button
+                ref={closeRef}
+                type="button"
+                onClick={onClose}
+                aria-label="Close company profile"
+                className="flex h-11 w-11 shrink-0 items-center justify-center border border-white/25 text-bone transition-colors duration-200 hover:border-safety hover:text-safety"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+                  <path d="M6 6l12 12M18 6L6 18" />
+                </svg>
+              </button>
+            </div>
+
+            {/* body */}
+            <div className="min-h-0 flex-1 overflow-y-auto px-5 py-7 sm:px-8">
+              {/* lead paragraphs — the story */}
+              <div className="max-w-[70ch] space-y-5 text-[1.02rem] leading-[1.75] text-bone/80">
+                <p>
+                  <span className="font-semibold text-oxide-light">Freeskills</span> Engineering
+                  (M) Sdn Bhd — registered 1502941-H — is a boiler and pressure vessel repairer
+                  based in Menglembu, Ipoh, Perak. We are a workshop company first: alteration,
+                  repair and overhaul of steam boilers and unfired pressure vessels, general
+                  fabrication of structural steel and process piping, hydrostatic testing, and
+                  on-site welding crews for breakdowns and planned shutdowns.
+                </p>
+                <p>
+                  The work is regulated, so the way we run it is regulated too. Our facility is
+                  registered under the Factories &amp; Machinery Act 1967, welders work to
+                  approved procedures, inspection equipment is calibrated, and every job closes
+                  with the test records your maintenance file, your insurer and DOSH expect to
+                  see.
+                </p>
+              </div>
+
+              {/* scope chips */}
+              <div className="mt-7 flex flex-wrap gap-2">
+                {PROFILE_SCOPE.map((s) => (
+                  <span
+                    key={s}
+                    className="label border border-safety/45 px-3 py-2 text-safety"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+
+              {/* company particulars */}
+              <div className="mt-9 border-t border-white/15 pt-7">
+                <h3 className="display text-[clamp(1.3rem,3vw,1.75rem)] text-safety">
+                  Company particulars
+                </h3>
+                <dl className="mt-5 grid gap-x-8 gap-y-0 sm:grid-cols-2">
+                  {PROFILE_PARTICULARS.map(([k, v]) => (
+                    <div
+                      key={k}
+                      className="grid grid-cols-[6.4rem_1fr] gap-3 border-b border-white/[0.09] py-3"
+                    >
+                      <dt className="label text-bone/45">{k}</dt>
+                      <dd className="font-mono text-[0.78rem] leading-[1.55] tracking-[0.05em] text-bone">
+                        {v}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+
+              {/* the story */}
+              <div className="mt-9 border-t border-white/15 pt-7">
+                <h3 className="display text-[clamp(1.3rem,3vw,1.75rem)] text-safety">
+                  Our background
+                </h3>
+                <div className="mt-5 grid gap-4 md:grid-cols-2">
+                  {PROFILE_STORY.map((b) => (
+                    <div
+                      key={b.idx}
+                      className="border border-white/12 bg-steel-800/70 px-5 py-5"
+                    >
+                      <span className="label tnum text-safety">{b.idx}</span>
+                      <h4 className="mt-3 font-display text-[1.25rem] uppercase leading-tight tracking-[0.03em] text-bone">
+                        {b.title}
+                      </h4>
+                      <p className="mt-3 text-[0.95rem] leading-[1.7] text-bone/75">
+                        {b.body}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* footer */}
+            <div className="flex shrink-0 flex-wrap items-center justify-between gap-4 border-t border-white/15 px-5 py-4 sm:px-8">
+              <span className="label text-bone/45">
+                Reg. 1502941-H · Facility JKKP/PK/2026/265610
+              </span>
+              <button
+                type="button"
+                onClick={onClose}
+                className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 font-display text-[1.1rem] uppercase leading-none tracking-[0.06em] text-bone transition-colors duration-200 hover:border-safety hover:text-safety"
+              >
+                Close
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}

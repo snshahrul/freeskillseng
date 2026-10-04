@@ -492,6 +492,112 @@ export function Compliance() {
 }
 
 /* ================================================================== */
+/*  QUALITY MANAGEMENT SYSTEM                                          */
+/* ================================================================== */
+const QMS_POINTS: [string, string, string][] = [
+  [
+    "01",
+    "Controlled before work starts",
+    "Scope is confirmed in writing, then the Inspection & Test Plan, method statement and job safety analysis are raised and approved in the system before any hot work begins.",
+  ],
+  [
+    "02",
+    "Qualified welders & procedures",
+    "Welding Procedure Specifications, Procedure Qualification Records and welder qualification tests to ASME IX and ISO 15614, with welder continuity tracked — only qualified hands weld on pressure parts.",
+  ],
+  [
+    "03",
+    "Inspection & testing recorded",
+    "Boiler, pressure vessel and piping defect assessments, visual and thickness checks, hydrostatic and bubble testing against written acceptance criteria — readings captured as the work happens.",
+  ],
+  [
+    "04",
+    "Certified, traceable close-out",
+    "Numbered certificates, PDF test reports and job records are cloud-synced to the job file and released after client acceptance — for your maintenance records, your insurer and the appointed inspector.",
+  ],
+];
+
+export function QMS() {
+  return (
+    <section
+      id="qms"
+      className="relative scroll-mt-20 overflow-hidden border-y border-white/10 bg-gradient-to-b from-steel-800 to-steel-900 text-bone"
+    >
+      <div className="mx-auto w-full max-w-[86rem] px-5 py-24 sm:px-8 lg:py-28">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <StampedLabel index="04">Quality Management System</StampedLabel>
+            <h2 className="display mt-6 text-[clamp(2.25rem,6vw,4.8rem)]">
+              Under control,
+              <br />
+              <span className="text-safety">within the code</span>
+            </h2>
+            <p className="mt-7 max-w-[46ch] text-[1.02rem] leading-[1.72] text-bone/80">
+              Freeskills Engineering runs every alteration, repair, inspection, testing and
+              certification job through our Quality Management Center — one controlled online
+              workspace shared by the workshop, our inspectors and your plant team. Plans, welding
+              qualifications, inspection readings, test results and certificates are raised,
+              checked and stored there in sequence, so nothing is signed off until the record
+              behind it exists.
+            </p>
+
+            <a
+              href="https://qmc.freeskillengineering.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-flex items-center justify-center gap-3 bg-safety px-7 py-4 font-display text-[1.2rem] uppercase leading-none tracking-[0.06em] text-steel-900 transition-colors duration-200 hover:bg-bone"
+            >
+              Open the Quality Management Center
+              <svg
+                viewBox="0 0 16 16"
+                aria-hidden="true"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M5.5 10.5L10.5 5.5M6.5 5.5h4v4" />
+              </svg>
+              <span className="sr-only">(opens in a new tab)</span>
+            </a>
+            <p className="mt-4 font-mono text-[0.72rem] uppercase leading-relaxed tracking-[0.14em] text-bone/50">
+              qmc.freeskillengineering.com · cloud sync &amp; PDF reports
+            </p>
+          </div>
+
+          <div>
+            <div className="grid grid-cols-1 border-t border-white/15 pb-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
+              <div className="label pt-4 text-bone/55">Control point</div>
+              <div className="label hidden pt-4 text-bone/55 sm:block">How it keeps the job in line</div>
+            </div>
+            {QMS_POINTS.map(([n, title, body], i) => (
+              <Reveal key={n} delay={i * 0.05}>
+                <div className="group grid grid-cols-1 gap-x-8 gap-y-2 border-b border-white/10 py-6 transition-colors duration-200 hover:bg-white/[0.03] sm:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
+                  <div className="flex items-baseline gap-4">
+                    <span className="label tnum text-safety">{n}</span>
+                    <h3 className="font-display text-[1.35rem] uppercase leading-[1.1] tracking-[0.015em]">
+                      {title}
+                    </h3>
+                  </div>
+                  <p className="max-w-[54ch] text-[0.92rem] leading-[1.7] text-bone/75">{body}</p>
+                </div>
+              </Reveal>
+            ))}
+            <p className="mt-8 border-l-2 border-safety bg-white/[0.03] px-5 py-4 font-mono text-[0.72rem] leading-[1.9] tracking-[0.05em] text-bone/65">
+              NOTE — THE QUALITY MANAGEMENT CENTER IS THE SINGLE SOURCE FOR PLANS, WELDING RECORDS,
+              TEST RESULTS AND CERTIFICATES. EVERY JOB FILE STAYS THERE, IN ORDER, FROM DEFECT LIST
+              TO SIGNED-OFF HANDOVER.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ================================================================== */
 /*  JOB FLOW                                                           */
 /* ================================================================== */
 const FLOW: [string, string, string][] = [
@@ -535,7 +641,7 @@ export function Flow() {
       <div className="absolute inset-0 bg-gradient-to-b from-steel-900 via-steel-900/88 to-steel-900" />
 
       <div className="relative mx-auto w-full max-w-[86rem] px-5 py-24 sm:px-8 lg:py-28">
-        <StampedLabel index="04">Job flow</StampedLabel>
+        <StampedLabel index="05">Job flow</StampedLabel>
         <h2 className="display mt-6 max-w-[18ch] text-[clamp(2.25rem,6vw,4.8rem)]">
           From defect list to <span className="text-oxide-light">signed-off handover</span>
         </h2>
@@ -592,7 +698,7 @@ export function Contact() {
   return (
     <section id="contact" className="paper-rule scroll-mt-20 bg-paper text-ink">
       <div className="mx-auto w-full max-w-[86rem] px-5 py-24 sm:px-8 lg:py-28">
-        <StampedLabel index="05" tone="paper">
+        <StampedLabel index="06" tone="paper">
           Contact &amp; works address
         </StampedLabel>
 

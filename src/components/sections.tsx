@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { motion } from "framer-motion";
-import { Nameplate, Reveal, StampedLabel } from "./graphics";
+import { Nameplate, OrgChartModal, Reveal, StampedLabel } from "./graphics";
 import { LocationMap } from "./map";
 
 /* ================================================================== */
@@ -14,6 +14,8 @@ const CREDS: [string, string][] = [
 ];
 
 export function Hero() {
+  const [orgChartOpen, setOrgChartOpen] = useState(false);
+
   return (
     <section className="relative bg-steel-900">
       {/* image plate */}
@@ -83,7 +85,7 @@ export function Hero() {
           {/* the riveted data plate — overlaps into the credential strip */}
           <div className="relative z-20 lg:-mb-36 lg:justify-self-end">
             <Reveal y={26}>
-              <Nameplate />
+              <Nameplate onOpenOrgChart={() => setOrgChartOpen(true)} />
             </Reveal>
           </div>
         </div>
@@ -107,6 +109,9 @@ export function Hero() {
           </dl>
         </div>
       </div>
+
+      {/* organisation chart popup, opened from the data plate */}
+      <OrgChartModal open={orgChartOpen} onClose={() => setOrgChartOpen(false)} />
     </section>
   );
 }

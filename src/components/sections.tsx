@@ -174,6 +174,15 @@ const CAPABILITIES: CapabilityCard[] = [
   },
 ];
 
+const INFRA_ITEMS: [string, string][] = [
+  ["Three covered bays", "plate & cylinder storage, materials handling, assembly & fit-up"],
+  ["CNC laser cutting", "MPS-D3 system in the dedicated Lot 02 facility"],
+  ["Plate rolling to 12.7 mm", "three-roll plate rolling machine (EQ-011)"],
+  ["Machining in-house", "precision lathe (EQ-007) and milling machine with digital readout (EQ-008)"],
+  ["Welding & cutting", "SMAW, GTAW and GMAW per approved WPS · oxy-fuel and air-arc"],
+  ["Calibrated inspection", "thickness survey and flaw detection with reference blocks, in-house"],
+];
+
 export function Capability() {
   return (
     <section id="capability" className="paper-rule relative scroll-mt-20 bg-paper text-ink">
@@ -233,6 +242,63 @@ export function Capability() {
               </article>
             </Reveal>
           ))}
+        </div>
+
+        {/* infrastructure & facilities */}
+        <div className="mt-16 overflow-hidden rounded-[6px] border border-white/10 bg-steel-800 text-bone">
+          <div className="grid lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+            <div className="p-7 sm:p-10">
+              <div className="flex items-center gap-3">
+                <span className="label text-safety">Infrastructure &amp; facilities</span>
+                <span className="h-px flex-1 bg-white/15" aria-hidden="true" />
+              </div>
+              <h3 className="display mt-5 text-[clamp(1.9rem,3.6vw,2.9rem)] text-bone">
+                Built for <span className="text-safety">heavy repair work</span>
+              </h3>
+              <p className="mt-5 max-w-[58ch] text-[1rem] leading-[1.72] text-bone/80">
+                Our dedicated repair workshop at Lot 01 &amp; 02, Menglembu is engineered for
+                high-tolerance heavy mechanical operations on boilers and pressure vessels — three
+                covered bays, CNC laser cutting, heavy plate rolling and calibrated inspection under
+                one roof, with an equipment register and calibration certificates available for
+                your evaluation.
+              </p>
+
+              <ul className="mt-7 grid gap-x-10 sm:grid-cols-2">
+                {INFRA_ITEMS.map(([t, b]) => (
+                  <li
+                    key={t}
+                    className="flex items-start gap-3 border-b border-white/10 py-3.5"
+                  >
+                    <span
+                      className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-safety"
+                      aria-hidden="true"
+                    />
+                    <span className="text-[0.93rem] leading-[1.55]">
+                      <span className="font-semibold text-bone">{t}</span>{" "}
+                      <span className="text-bone/70">— {b}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <p className="mt-7 font-mono text-[0.7rem] uppercase leading-relaxed tracking-[0.12em] text-bone/50">
+                Lot 01 &amp; 02, Hala Perusahaan Kledang Utara 6 · Menglembu, Ipoh · equipment list
+                &amp; calibration certificates on file
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center justify-center gap-4 border-t border-white/10 bg-steel-700/60 p-7 lg:border-l lg:border-t-0">
+              <img
+                src="images/facility-lot02.jpg"
+                alt="Freeskills Engineering Lot 02 facility, front view, Menglembu, Ipoh"
+                width={321}
+                height={231}
+                loading="lazy"
+                className="w-full max-w-[22rem] rounded-[4px] border border-white/15 object-cover shadow-[0_24px_50px_-28px_rgba(0,0,0,0.9)]"
+              />
+              <p className="label text-bone/55">Lot 02 · front view facility</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

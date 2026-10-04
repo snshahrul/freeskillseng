@@ -58,6 +58,11 @@ footer .label {
   font-size: 0.8rem;
 }
 
+/* primary nav: tighter tracking keeps seven items on one line at xl */
+header nav a.label {
+  letter-spacing: 0.12em;
+}
+
 .tnum {
   font-variant-numeric: tabular-nums;
 }

@@ -1,3 +1,4 @@
+import { Fragment, useState } from "react";
 import { motion } from "framer-motion";
 import { Nameplate, Reveal, StampedLabel } from "./graphics";
 import { LocationMap } from "./map";
@@ -498,17 +499,17 @@ const QMS_POINTS: [string, string, string][] = [
   [
     "01",
     "Controlled before work starts",
-    "Scope is confirmed in writing, then the Inspection & Test Plan, method statement and job safety analysis are raised and approved in the system before any hot work begins.",
+ "Scope is confirmed in writing; then the defect assessment, thickness measurement (if required), visual inspection, Inspection & Test Plan, method statement and job safety analysis are raised — and all relevant documents are sent to DOSH as a ‘repair notice’ and approved in the system before any hot work begins.",
   ],
   [
     "02",
     "Qualified welders & procedures",
-    "Welding Procedure Specifications, Procedure Qualification Records and welder qualification tests to ASME IX and ISO 15614, with welder continuity tracked — only qualified hands weld on pressure parts.",
+    "Welding Procedure Specifications (WPS), Procedure Qualification Records (PQR) and welder qualification tests (WQT) to the ASME Boiler & Pressure Vessel Code Section IX or ISO/BS EN 15614, with welder continuity tracked — only qualified welders are permitted to weld on pressure parts.",
   ],
   [
     "03",
-    "Inspection & testing recorded",
-    "Boiler, pressure vessel and piping defect assessments, visual and thickness checks, hydrostatic and bubble testing against written acceptance criteria — readings captured as the work happens.",
+    "Answered in minutes, monitored live",
+    "Inspection plans, repair procedures, acceptance criteria and decision-making are answered within minutes — without delaying your plant shutdown planning or schedule. Every client or inspector can monitor repair progress live via a link to our Quality Management Center and can leave comments or suggestions for improvement — all of it handled inside the system.",
   ],
   [
     "04",
@@ -517,7 +518,47 @@ const QMS_POINTS: [string, string, string][] = [
   ],
 ];
 
+const DEMO_STEPS: [string, string, string][] = [
+  [
+    "01",
+    "Raise the job",
+    "The defect list is logged against the client and equipment record — history, drawings and certificates pulled up in one place.",
+  ],
+  [
+    "02",
+    "Plans & approvals",
+    "ITP, method statement and JSA generated in-system; repair-notice documents sent to DOSH and approved before any hot work.",
+  ],
+  [
+    "03",
+    "Qualified execution",
+    "WPS/PQR and welder qualifications matched to the job, with the workshop updating progress live as the repair runs.",
+  ],
+  [
+    "04",
+    "Test & decide",
+    "Inspections recorded and acceptance criteria answered within minutes — results sent to the inspector or client without delay.",
+  ],
+  [
+    "05",
+    "Handover",
+    "Numbered certificate, PDF test reports and the complete, ordered job file released after client acceptance.",
+  ],
+];
+
 export function QMS() {
+  const [showDemo, setShowDemo] = useState(false);
+
+  const toggleDemo = () => {
+    const next = !showDemo;
+    setShowDemo(next);
+    if (next) {
+      window.requestAnimationFrame(() => {
+        document.getElementById("qms-demo")?.scrollIntoView({ block: "center" });
+      });
+    }
+  };
+
   return (
     <section
       id="qms"
@@ -541,27 +582,50 @@ export function QMS() {
               behind it exists.
             </p>
 
-            <a
-              href="https://qmc.freeskillengineering.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center justify-center gap-3 bg-safety px-7 py-4 font-display text-[1.2rem] uppercase leading-none tracking-[0.06em] text-steel-900 transition-colors duration-200 hover:bg-bone"
-            >
-              Open the Quality Management Center
-              <svg
-                viewBox="0 0 16 16"
-                aria-hidden="true"
-                className="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={toggleDemo}
+                aria-expanded={showDemo}
+                aria-controls="qms-demo"
+                className="inline-flex items-center justify-center gap-3 bg-safety px-7 py-4 font-display text-[1.2rem] uppercase leading-none tracking-[0.06em] text-steel-900 transition-colors duration-200 hover:bg-bone"
               >
-                <path d="M5.5 10.5L10.5 5.5M6.5 5.5h4v4" />
-              </svg>
-              <span className="sr-only">(opens in a new tab)</span>
-            </a>
+                {showDemo ? "Hide the demo" : "See how it works"}
+                <svg
+                  viewBox="0 0 16 16"
+                  aria-hidden="true"
+                  className={`h-4 w-4 transition-transform duration-300 ${showDemo ? "rotate-180" : ""}`}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M8 3v10M3.5 8.5L8 13l4.5-4.5" />
+                </svg>
+              </button>
+              <a
+                href="https://qmc.freeskillengineering.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 border border-white/25 px-6 py-4 font-display text-[1.15rem] uppercase leading-none tracking-[0.06em] text-bone transition-colors duration-200 hover:border-safety hover:text-safety"
+              >
+                Open the live system
+                <svg
+                  viewBox="0 0 16 16"
+                  aria-hidden="true"
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5.5 10.5L10.5 5.5M6.5 5.5h4v4" />
+                </svg>
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+            </div>
             <p className="mt-4 font-mono text-[0.72rem] uppercase leading-relaxed tracking-[0.14em] text-bone/50">
               qmc.freeskillengineering.com · cloud sync &amp; PDF reports
             </p>
@@ -586,9 +650,191 @@ export function QMS() {
               </Reveal>
             ))}
             <p className="mt-8 border-l-2 border-safety bg-white/[0.03] px-5 py-4 font-mono text-[0.72rem] leading-[1.9] tracking-[0.05em] text-bone/65">
-              NOTE — THE QUALITY MANAGEMENT CENTER IS THE SINGLE SOURCE FOR PLANS, WELDING RECORDS,
-              TEST RESULTS AND CERTIFICATES. EVERY JOB FILE STAYS THERE, IN ORDER, FROM DEFECT LIST
-              TO SIGNED-OFF HANDOVER.
+              NOTE — THE QUALITY MANAGEMENT CENTER IS THE SINGLE SOURCE FOR CLIENT EQUIPMENT DATA
+              MONITORING (CF EXPIRY DATES), PROJECT MONITORING, DOCUMENT PREPARATION FOR APPROVAL,
+              INSPECTION PLANS, WELDER AND WELDING RECORDS, ALL RELATED PROCEDURES AND MATERIAL
+              SPECIFICATIONS, TEST RESULTS AND CERTIFICATES. EVERY JOB FILE STAYS THERE, IN ORDER,
+              FROM DEFECT LIST TO SIGNED-OFF HANDOVER.
+            </p>
+          </div>
+        </div>
+
+        {showDemo && (
+          <div
+            id="qms-demo"
+            role="region"
+            aria-label="How a job runs in the Quality Management Center"
+            className="mt-14 border-t border-white/15 pt-10"
+          >
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <span className="label text-safety">
+                Demo — how a job runs in the system
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowDemo(false)}
+                className="label text-bone/55 transition-colors duration-200 hover:text-safety"
+              >
+                Close ×
+              </button>
+            </div>
+
+            <div className="mt-7 flex flex-col gap-3 lg:flex-row lg:items-stretch">
+              {DEMO_STEPS.map(([n, title, body], i) => (
+                <Fragment key={n}>
+                  <article className="flex flex-1 flex-col rounded-[4px] border border-white/12 bg-steel-800/50 p-5 transition-colors duration-200 hover:border-oxide/60">
+                    <span className="label tnum text-safety">{n}</span>
+                    <h3 className="mt-3 font-display text-[1.25rem] uppercase leading-tight tracking-[0.02em] text-bone">
+                      {title}
+                    </h3>
+                    <p className="mt-2.5 text-[0.87rem] leading-[1.65] text-bone/75">{body}</p>
+                  </article>
+                  {i < DEMO_STEPS.length - 1 && (
+                    <span
+                      aria-hidden="true"
+                      className="flex shrink-0 items-center justify-center self-center font-mono text-[1.3rem] leading-none text-oxide"
+                    >
+                      <span className="lg:hidden">↓</span>
+                      <span className="hidden lg:inline">→</span>
+                    </span>
+                  )}
+                </Fragment>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/* ================================================================== */
+/*  SAFETY & HEALTH                                                   */
+/* ================================================================== */
+const SAFETY_FACTS: [string, string][] = [
+  ["Standard", "OSHA 1994 (Act 514) & Factories & Machinery Act 1967"],
+  ["Leadership", "Designated OSH Coordinator · Safety Committee chaired by the Managing Director"],
+  ["Assessment", "HIRARC — hazard identification, risk assessment and risk control — for every work activity"],
+  ["Emergency", "ERP drills · first aiders · liaison with the client's emergency response team"],
+];
+
+const SAFETY_COMMITMENTS: [string, string, string][] = [
+  [
+    "01",
+    "Procedures & PPE discipline",
+    "Every worker follows the safe operating procedure for the task and wears mandatory PPE — 100% compliance, every shift, in the workshop and on site.",
+  ],
+  [
+    "02",
+    "Report unsafe conditions",
+    "Any unsafe condition, equipment malfunction or near-miss is reported to the supervisor immediately, under a no-blame reporting culture.",
+  ],
+  [
+    "03",
+    "Stop work authority",
+    "Every worker has the absolute right, without fear of retaliation, to stop work they believe poses an imminent hazard to life, health or structural integrity.",
+  ],
+];
+
+const SAFE_SYSTEMS: [string, string][] = [
+  [
+    "Permit-to-work",
+    "Hot work, confined space and working-at-height permits issued per job before any high-risk activity begins.",
+  ],
+  [
+    "Confined space entry",
+    "Atmospheric testing, continuous ventilation, a constant attendant and a standby rescue team for vessel and furnace entry.",
+  ],
+  [
+    "Hot work control",
+    "Atmospheric monitoring, fire watch, spark containment and flammable-zone clearance for welding and gouging.",
+  ],
+  [
+    "Lifting & handling",
+    "Certified riggers, lifting plans and craneage inspection under strict load management to prevent dropped objects and crush injuries.",
+  ],
+];
+
+export function Safety() {
+  return (
+    <section id="safety" className="paper-rule scroll-mt-20 bg-paper text-ink">
+      <div className="mx-auto w-full max-w-[86rem] px-5 py-24 sm:px-8 lg:py-28">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <StampedLabel index="05" tone="paper">
+              Safety &amp; Health
+            </StampedLabel>
+            <h2 className="display mt-6 text-[clamp(2.25rem,6vw,4.8rem)]">
+              Safety
+              <br />
+              <span className="text-oxide">above all</span>
+            </h2>
+            <p className="mt-7 max-w-[46ch] text-[1.02rem] leading-[1.72] text-ink/75">
+              No task outranks the safety of people and plant. Our OSH policy — signed by the
+              Managing Director — commits the company to no operation that risks injury to people,
+              damage to plant or harm to the environment, managed under OSHA 1994 (Act 514) and the
+              Factories &amp; Machinery Act 1967, and audited by DOSH.
+            </p>
+
+            <dl className="mt-9 border-t-2 border-ink/70">
+              {SAFETY_FACTS.map(([k, v]) => (
+                <div
+                  key={k}
+                  className="grid grid-cols-1 gap-x-8 gap-y-1 border-b border-ink/15 py-4 sm:grid-cols-[7.5rem_minmax(0,1fr)]"
+                >
+                  <dt className="label pt-1 text-ink/65">{k}</dt>
+                  <dd className="text-[0.92rem] leading-[1.6] text-ink">{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          <div>
+            <div className="grid grid-cols-1 border-b-2 border-ink/70 pb-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
+              <div className="label text-ink/65">Commitment</div>
+              <div className="label hidden text-ink/65 sm:block">What it means on the job</div>
+            </div>
+            {SAFETY_COMMITMENTS.map(([n, title, body], i) => (
+              <Reveal key={n} delay={i * 0.05}>
+                <div className="grid grid-cols-1 gap-x-8 gap-y-2 border-b border-ink/15 py-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
+                  <div className="flex items-baseline gap-4">
+                    <span className="label tnum text-oxide">{n}</span>
+                    <h3 className="font-display text-[1.35rem] uppercase leading-[1.1] tracking-[0.015em]">
+                      {title}
+                    </h3>
+                  </div>
+                  <p className="max-w-[54ch] text-[0.92rem] leading-[1.7] text-ink/75">{body}</p>
+                </div>
+              </Reveal>
+            ))}
+
+            <h3 className="mt-10 font-display text-[1.7rem] uppercase leading-none tracking-[0.02em] text-ink">
+              Safe systems of work
+            </h3>
+            <div className="mt-5 grid gap-5 sm:grid-cols-2">
+              {SAFE_SYSTEMS.map(([title, body]) => (
+                <div
+                  key={title}
+                  className="rounded-[4px] border border-ink/15 bg-[#f7f3ea] p-5 transition-colors duration-200 hover:border-ink/30"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span
+                      className="h-1.5 w-1.5 shrink-0 rounded-full bg-oxide"
+                      aria-hidden="true"
+                    />
+                    <h4 className="font-display text-[1.2rem] uppercase leading-tight tracking-[0.02em] text-ink">
+                      {title}
+                    </h4>
+                  </div>
+                  <p className="mt-2.5 text-[0.9rem] leading-[1.65] text-ink/75">{body}</p>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-8 border-l-2 border-oxide bg-ink/[0.04] px-5 py-4 font-mono text-[0.72rem] leading-[1.9] tracking-[0.05em] text-ink/70">
+              NOTE — DAILY PRE-TASK TOOLBOX TALKS, 100% MANDATORY PPE, A NO-BLAME NEAR-MISS REPORTING
+              CULTURE AND STOP WORK AUTHORITY FOR EVERY WORKER. PRESSURE TESTING IS CONTROLLED AND
+              WITNESSED BY A DOSH INSPECTING OFFICER OR DESIGNATED REPRESENTATIVE.
             </p>
           </div>
         </div>
@@ -641,7 +887,7 @@ export function Flow() {
       <div className="absolute inset-0 bg-gradient-to-b from-steel-900 via-steel-900/88 to-steel-900" />
 
       <div className="relative mx-auto w-full max-w-[86rem] px-5 py-24 sm:px-8 lg:py-28">
-        <StampedLabel index="05">Job flow</StampedLabel>
+        <StampedLabel index="06">Job flow</StampedLabel>
         <h2 className="display mt-6 max-w-[18ch] text-[clamp(2.25rem,6vw,4.8rem)]">
           From defect list to <span className="text-oxide-light">signed-off handover</span>
         </h2>
@@ -698,7 +944,7 @@ export function Contact() {
   return (
     <section id="contact" className="paper-rule scroll-mt-20 bg-paper text-ink">
       <div className="mx-auto w-full max-w-[86rem] px-5 py-24 sm:px-8 lg:py-28">
-        <StampedLabel index="06" tone="paper">
+        <StampedLabel index="07" tone="paper">
           Contact &amp; works address
         </StampedLabel>
 

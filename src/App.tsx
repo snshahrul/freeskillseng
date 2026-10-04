@@ -7,6 +7,7 @@ import {
   Flow,
   Hero,
   QMS,
+  Safety,
   Works,
 } from "./components/sections";
 
@@ -15,6 +16,7 @@ const NAV: [string, string][] = [
   ["Works", "#works"],
   ["Compliance", "#compliance"],
   ["Quality", "#qms"],
+  ["Safety", "#safety"],
   ["Job flow", "#flow"],
   ["Contact", "#contact"],
 ];
@@ -124,7 +126,7 @@ function Header() {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-6 xl:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-5 xl:flex" aria-label="Primary">
           {NAV.map(([label, href]) => {
             const on = active === href.slice(1);
             return (
@@ -333,6 +335,7 @@ export default function App() {
         <Works />
         <Compliance />
         <QMS />
+        <Safety />
         <Flow />
         <Contact />
       </main>

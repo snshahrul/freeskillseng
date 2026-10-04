@@ -419,10 +419,12 @@ className="plate grain relative flex max-h-[88vh] w-full max-w-5xl flex-col over
                                 aria-hidden="true"
                               />
                             )}
-                            <div className="font-display text-[1.12rem] uppercase leading-tight tracking-[0.03em] text-bone">
+                            <div className="font-display text-[1.3rem] uppercase leading-tight tracking-[0.03em] text-bone lg:text-[1.42rem]">
                               {p.name}
                             </div>
-                            <div className="label mt-2 text-safety/90">{p.role}</div>
+                            <div className="mt-2.5 font-mono text-[0.92rem] uppercase leading-snug tracking-[0.12em] text-safety/90">
+                              {p.role}
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -431,28 +433,25 @@ className="plate grain relative flex max-h-[88vh] w-full max-w-5xl flex-col over
                 })}
               </div>
 
-              {/* ---- personnel table ---- */}
+              {/* ---- personnel list ---- */}
               <div className="mt-10 border-t border-white/15 pt-7">
-                <span className="label text-safety">Technical personnel</span>
-
-                <div className="mt-5 hidden border-b border-white/15 pb-3 md:grid md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.95fr)_minmax(0,1.9fr)_6rem] md:gap-x-4">
-                  <span className="label text-bone/45">Name</span>
-                  <span className="label text-bone/45">Role</span>
-                  <span className="label text-bone/45">Qualification</span>
-                  <span className="label text-bone/45 md:justify-self-start lg:justify-self-end">Experience</span>
-                </div>
+                <h3 className="display text-[clamp(1.5rem,3.5vw,2.1rem)] text-safety">
+                  List of Technical Person
+                </h3>
 
                 {ORG_TIERS.flatMap((t) => t.people).map((p) => (
                   <div
                     key={p.name}
                     className="grid gap-x-4 gap-y-2 border-b border-white/[0.09] py-4 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.95fr)_minmax(0,1.9fr)_6rem] md:items-start"
                   >
-                    <div className="font-display text-[1.12rem] uppercase leading-tight tracking-[0.03em] text-bone">
+                    <div className="font-display text-[1.3rem] uppercase leading-tight tracking-[0.03em] text-bone lg:text-[1.42rem]">
                       {p.name}
                     </div>
-                    <div className="label text-safety/90 md:pt-1.5">{p.role}</div>
-                    <div className="text-[0.93rem] leading-[1.65] text-bone/70">{p.quals}</div>
-                    <div className="md:justify-self-start md:pt-0.5 lg:justify-self-end">
+                    <div className="font-mono text-[0.9rem] uppercase leading-snug tracking-[0.1em] text-safety/90 md:pt-1.5">
+                      {p.role}
+                    </div>
+                    <div className="text-[1.02rem] leading-[1.7] text-bone/75">{p.quals}</div>
+                    <div className="md:justify-self-start md:pt-1 lg:justify-self-end">
                       <YearsChip years={p.years} />
                     </div>
                   </div>

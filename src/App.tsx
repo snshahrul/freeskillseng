@@ -397,6 +397,25 @@ function Footer() {
               Boiler and pressure vessel repairer and general fabrication of steel structures.
               Workshop and on-site service from Menglembu, Ipoh, Perak.
             </p>
+            <a
+              href="Freeskills-Engineering-Deck.pptx"
+              download
+              className="group mt-5 inline-flex w-fit items-center gap-2.5 border border-white/20 px-4 py-2.5 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-bone/70 transition-colors duration-200 hover:border-safety hover:text-safety"
+            >
+              Company deck · PPTX
+              <svg
+                viewBox="0 0 24 24"
+                className="h-3.5 w-3.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 4v12M6 12l6 6 6-6M4 20h16" />
+              </svg>
+            </a>
           </div>
 
           <div>

@@ -945,6 +945,7 @@ export function QMS() {
 /* ================================================================== */
 const SAFETY_FACTS: [string, string][] = [
   ["Standard", "OSHA 1994 (Act 514) & Factories & Machinery Act 1967"],
+  ["Manual", "FSESB-SHM-002-26 · Safety Manual"],
   ["Leadership", "Designated OSH Coordinator · Safety Committee chaired by the Managing Director"],
   ["Assessment", "HIRARC — hazard identification, risk assessment and risk control — for every work activity"],
   ["Emergency", "ERP drills · first aiders · liaison with the client's emergency response team"],
@@ -1171,7 +1172,12 @@ export function Safety() {
             <h3 className="display text-[clamp(1.7rem,3.6vw,2.6rem)]">
               Safety &amp; Health <span className="text-oxide">Commitment Statement</span>
             </h3>
-            <span className="label text-ink/65">1.0 Core Commitments</span>
+            <div className="sm:text-right">
+              <span className="label block text-ink/65">1.0 Core Commitments</span>
+              <span className="label tnum mt-1.5 block text-oxide">
+                Safety Manual No. FSESB-SHM-002-26
+              </span>
+            </div>
           </div>
           <p className="mt-3 max-w-[72ch] text-[0.98rem] leading-[1.7] text-ink/70">
             The standards we hold ourselves to on every boiler and pressure vessel job.

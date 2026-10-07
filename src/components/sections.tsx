@@ -671,17 +671,6 @@ const DEMO_STEPS: [string, string, string][] = [
 
 export function QMS() {
   const [showDemo, setShowDemo] = useState(false);
-  const [openCode, setOpenCode] = useState<number | null>(null);
-
-  const toggleCode = (i: number) => {
-    const next = openCode === i ? null : i;
-    setOpenCode(next);
-    if (next !== null) {
-      window.requestAnimationFrame(() => {
-        document.getElementById("code-book-viewer")?.scrollIntoView({ block: "center" });
-      });
-    }
-  };
 
   const toggleDemo = () => {
     const next = !showDemo;
@@ -797,9 +786,7 @@ export function QMS() {
         <div className="mt-16 border-t border-white/15 pt-10">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <span className="label text-safety">Code list · codes we own</span>
-            <span className="label text-bone/45">
-              Click a code to attach its PDF here
-            </span>
+            <span className="label text-bone/45">Reference standards &amp; statutes</span>
           </div>
           <h3 className="display mt-4 text-[clamp(1.6rem,3.4vw,2.4rem)]">
             The code books <span className="text-safety">Freeskills works to</span>
@@ -807,23 +794,15 @@ export function QMS() {
 
           <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {CODE_BOOKS.map((c, i) => (
-              <button
+              <div
                 key={c.file}
-                type="button"
-                onClick={() => toggleCode(i)}
-                aria-expanded={openCode === i}
-                aria-controls="code-book-viewer"
-                className={`group flex w-full items-center gap-4 border px-5 py-4 text-left transition-colors duration-200 ${
-                  openCode === i
-                    ? "border-safety/70 bg-safety/[0.06]"
-                    : "border-white/12 bg-steel-800/50 hover:border-safety/70 hover:bg-safety/[0.06]"
-                }`}
+                className="flex w-full items-center gap-4 border border-white/12 bg-steel-800/50 px-5 py-4"
               >
                 <span className="label tnum text-safety">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block font-display text-[1.15rem] uppercase leading-tight tracking-[0.02em] text-bone transition-colors duration-200 group-hover:text-safety">
+                  <span className="block font-display text-[1.15rem] uppercase leading-tight tracking-[0.02em] text-bone">
                     {c.title}
                   </span>
                   <span className="mt-1 block font-mono text-[0.7rem] uppercase leading-snug tracking-[0.1em] text-bone/50">
@@ -832,7 +811,7 @@ export function QMS() {
                 </span>
                 <svg
                   viewBox="0 0 24 24"
-                  className="h-5 w-5 shrink-0 text-bone/40 transition-colors duration-200 group-hover:text-safety"
+                  className="h-5 w-5 shrink-0 text-bone/40"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.6"
@@ -843,51 +822,12 @@ export function QMS() {
                   <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
                   <path d="M14 3v5h5" />
                 </svg>
-                <span className="sr-only">(attaches the PDF in this section)</span>
-              </button>
+              </div>
             ))}
           </div>
 
-          {/* attached PDF viewer — shows the selected code book on the page */}
-          {openCode !== null && (
-            <div
-              id="code-book-viewer"
-              className="mt-7 overflow-hidden rounded-[4px] border border-white/15 bg-steel-800/70"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/15 px-5 py-3.5">
-                <span className="label min-w-0 truncate text-safety">
-                  {CODE_BOOKS[openCode].title}
-                </span>
-                <div className="flex shrink-0 items-center gap-4">
-                  <a
-                    href={`Code/${CODE_BOOKS[openCode].file}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="label text-bone/60 transition-colors duration-200 hover:text-safety"
-                  >
-                    Open full PDF ↗
-                    <span className="sr-only">(opens in a new tab)</span>
-                  </a>
-                  <button
-                    type="button"
-                    onClick={() => setOpenCode(null)}
-                    className="label text-bone/55 transition-colors duration-200 hover:text-safety"
-                  >
-                    Close ×
-                  </button>
-                </div>
-              </div>
-              <iframe
-                key={CODE_BOOKS[openCode].file}
-                src={`Code/${CODE_BOOKS[openCode].file}#toolbar=0&navpanes=0`}
-                title={`${CODE_BOOKS[openCode].title} — PDF code book`}
-                className="h-[70vh] w-full border-0 bg-white/[0.04]"
-              />
-            </div>
-          )}
-
           <p className="mt-5 font-mono text-[0.7rem] uppercase leading-relaxed tracking-[0.12em] text-bone/45">
-            Controlled copies held at the Menglembu workshop · PDF code books open in a new tab
+            Controlled copies held at the Menglembu workshop · reference copies available on request
           </p>
         </div>
 

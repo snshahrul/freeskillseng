@@ -1,6 +1,6 @@
-import { Fragment, useState } from "react";
+import { Fragment, type ReactNode, useState } from "react";
 import { motion } from "framer-motion";
-import { Nameplate, OrgChartModal, Reveal, StampedLabel } from "./graphics";
+import { Nameplate, OrgChartModal, Reveal, SafetyCommitteeModal, StampedLabel } from "./graphics";
 import { LocationMap } from "./map";
 
 /* ================================================================== */
@@ -987,15 +987,109 @@ const SAFE_SYSTEMS: [string, string][] = [
   ],
 ];
 
+/* 1.0 Core Commitments — copied from the DOSH presentation's statement slide */
+const CORE_COMMITMENTS: { key: string; title: string; items: ReactNode[] }[] = [
+  {
+    key: "a)",
+    title: "Legal Compliance",
+    items: [
+      <>
+        Adhere to <strong>Malaysian OSHA</strong> and <strong>Factories &amp; Machinery Act (FMA)</strong>
+      </>,
+      <>
+        Comply with <strong>DOSH / JKKP regulations</strong>
+      </>,
+      <>
+        Follow <strong>international standards</strong> (ASME, National Board codes)
+      </>,
+    ],
+  },
+  {
+    key: "c)",
+    title: "Safe Systems of Work",
+    items: [
+      <>
+        <strong>Permit-To-Work (PTW)</strong> for high-risk activities
+      </>,
+      "Confined Space Entry (vessels / furnace)",
+      "Hot Work (welding / gouging)",
+      "Pressure Testing (hydrostatic / pneumatic)",
+    ],
+  },
+  {
+    key: "b)",
+    title: "Risk Management (HIRARC)",
+    items: [
+      "Hazard Identification",
+      "Risk Assessment",
+      "Risk Control",
+      <>
+        Implement control measures <strong>before</strong> any work begins
+      </>,
+    ],
+  },
+  {
+    key: "d)",
+    title: "Competency & Training",
+    items: [
+      <>
+        All personnel must be <strong>formally trained</strong>
+      </>,
+      <>
+        <strong>DOSH-certified</strong> where required
+      </>,
+      <>
+        <strong>Physically fit</strong> for designated tasks
+      </>,
+      "Includes: welders, confined space attendants, supervisors",
+    ],
+  },
+];
+
+const COMMITMENT_IMPROVEMENTS: ReactNode[] = [
+  "Review safety performance regularly",
+  "Monitor accident metrics",
+  "Update engineering procedures",
+  <>
+    <strong>Elevate safety standards</strong> continuously
+  </>,
+];
+
+const COMMITMENT_STATUTES: string[] = ["OSHA 1994", "FMA 1967", "DOSH / JKKP"];
+
 export function Safety() {
+  const [committeeOpen, setCommitteeOpen] = useState(false);
+
   return (
     <section id="safety" className="paper-rule scroll-mt-20 bg-paper text-ink">
       <div className="mx-auto w-full max-w-[86rem] px-5 py-24 sm:px-8 lg:py-28">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
           <div className="lg:sticky lg:top-24 lg:self-start">
-            <StampedLabel index="05" tone="paper">
-              Safety &amp; Health
-            </StampedLabel>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+              <StampedLabel index="05" tone="paper">
+                Safety &amp; Health
+              </StampedLabel>
+              <button
+                type="button"
+                onClick={() => setCommitteeOpen(true)}
+                aria-haspopup="dialog"
+                className="group inline-flex items-center gap-2 border border-ink/25 px-3 py-1.5 font-mono text-[0.68rem] uppercase leading-none tracking-[0.14em] text-ink/70 transition-colors duration-200 hover:border-oxide hover:text-oxide"
+              >
+                Safety committee chart
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-3.5 w-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </button>
+            </div>
             <h2 className="display mt-6 text-[clamp(2.25rem,6vw,4.8rem)]">
               Safety
               <br />
@@ -1070,7 +1164,96 @@ export function Safety() {
             </p>
           </div>
         </div>
+
+        {/* ---- commitment statement (1.0 Core Commitments) ---- */}
+        <div className="mt-16 border-t-2 border-ink/70 pt-9">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+            <h3 className="display text-[clamp(1.7rem,3.6vw,2.6rem)]">
+              Safety &amp; Health <span className="text-oxide">Commitment Statement</span>
+            </h3>
+            <span className="label text-ink/65">1.0 Core Commitments</span>
+          </div>
+          <p className="mt-3 max-w-[72ch] text-[0.98rem] leading-[1.7] text-ink/70">
+            The standards we hold ourselves to on every boiler and pressure vessel job.
+          </p>
+
+          <div className="mt-7 grid gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.5fr)]">
+            {/* statement */}
+            <div className="flex flex-col justify-between rounded-[4px] border border-oxide/35 bg-gradient-to-b from-[#f7f3ea] to-oxide/[0.06] p-6">
+              <div>
+                <p className="text-[1rem] leading-[1.72] text-ink/85">
+                  <strong className="font-display text-[1.15rem] text-oxide">
+                    Freeskills Engineering (M) Sdn. Bhd.
+                  </strong>{" "}
+                  is fully committed to providing and maintaining a safe, healthy, and compliant
+                  working environment for all employees, contractors, clients, and visitors.
+                </p>
+                <p className="mt-4 text-[1rem] leading-[1.72] text-ink/85">
+                  As a specialist in{" "}
+                  <strong className="text-ink">Boiler and Pressure Vessel Repair</strong>, we
+                  recognize that our operations involve high-risk tasks, including heavy fabrication,
+                  high-pressure testing, hot work, and confined space entries. We treat safety not
+                  merely as a regulatory requirement, but as a{" "}
+                  <strong className="text-oxide">core value</strong> guiding every engineering
+                  practice we undertake.
+                </p>
+              </div>
+              <div className="mt-5 flex flex-wrap gap-2 border-t border-ink/20 pt-4">
+                {COMMITMENT_STATUTES.map((s) => (
+                  <span
+                    key={s}
+                    className="label border border-ink/25 px-2.5 py-1.5 text-ink/70"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* core commitments requirements */}
+            <div className="rounded-[4px] border border-ink/15 bg-[#f7f3ea] p-6">
+              <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b border-ink/20 pb-3">
+                <span className="label text-oxide">1.0 Core Commitments</span>
+                <span className="label text-ink/55">Safety &amp; Health Requirements</span>
+              </div>
+
+              <div className="mt-5 grid gap-x-8 gap-y-6 sm:grid-cols-2">
+                {CORE_COMMITMENTS.map((g) => (
+                  <div key={g.key}>
+                    <div className="flex items-baseline gap-2">
+                      <span className="label tnum text-oxide">{g.key}</span>
+                      <h4 className="font-display text-[1.15rem] uppercase leading-tight tracking-[0.02em] text-ink">
+                        {g.title}
+                      </h4>
+                    </div>
+                    <ul className="mt-2.5 list-disc space-y-1.5 pl-6 text-[0.88rem] leading-[1.6] text-ink/75">
+                      {g.items.map((it, i) => (
+                        <li key={i}>{it}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 border-t border-ink/20 pt-4">
+                <div className="flex items-baseline gap-2">
+                  <span className="label tnum text-oxide">e)</span>
+                  <h4 className="font-display text-[1.15rem] uppercase leading-tight tracking-[0.02em] text-ink">
+                    Continuous Improvement
+                  </h4>
+                </div>
+                <div className="mt-2.5 grid gap-x-6 gap-y-2 pl-6 text-[0.88rem] leading-[1.6] text-ink/75 sm:grid-cols-2 lg:grid-cols-4">
+                  {COMMITMENT_IMPROVEMENTS.map((it, i) => (
+                    <span key={i}>{it}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <SafetyCommitteeModal open={committeeOpen} onClose={() => setCommitteeOpen(false)} />
     </section>
   );
 }

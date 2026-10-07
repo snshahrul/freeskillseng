@@ -478,6 +478,271 @@ className="plate grain relative flex max-h-[88vh] w-full max-w-5xl flex-col over
 }
 
 /* ------------------------------------------------------------------ */
+/*  Safety committee organisation chart — opens from section 05        */
+/* ------------------------------------------------------------------ */
+/* Chart box — mirrors the safety committee chart on the DOSH presentation */
+function CommitteeCard({
+  title,
+  sub,
+  variant = "navy",
+  className = "",
+}: {
+  title: string;
+  sub: string;
+  variant?: "chair" | "navy" | "deep";
+  className?: string;
+}) {
+  const skin =
+    variant === "chair"
+      ? "border-oxide bg-gradient-to-b from-oxide to-oxide-light text-white shadow-lg shadow-oxide/20"
+      : variant === "navy"
+        ? "border-white/20 bg-steel-800 text-bone shadow-md"
+        : "border-white/12 bg-steel-900 text-bone/90 shadow-sm";
+  const subSkin = variant === "chair" ? "text-white/85" : "text-bone/70";
+  return (
+    <div
+      className={`flex flex-col items-center justify-center border px-3 py-2 text-center transition-transform duration-200 hover:scale-[1.02] ${skin} ${className}`}
+    >
+      <div className="font-display text-[13px] font-semibold leading-tight">{title}</div>
+      <div className={`mt-0.5 font-mono text-[9.5px] leading-tight tracking-[0.08em] ${subSkin}`}>
+        {sub}
+      </div>
+    </div>
+  );
+}
+
+export function SafetyCommitteeModal({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  const reduce = useReducedMotion();
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  /* lock scroll, close on Escape, focus the close button */
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    closeRef.current?.focus();
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open, onClose]);
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          key="safety-committee-backdrop"
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-steel-900/90 p-3 backdrop-blur-sm sm:p-6"
+          initial={reduce ? undefined : { opacity: 0 }}
+          animate={reduce ? undefined : { opacity: 1 }}
+          exit={reduce ? undefined : { opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) onClose();
+          }}
+        >
+          <motion.div
+            id="safety-committee-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="safety-committee-title"
+            className="plate grain relative flex max-h-[88vh] w-full max-w-4xl flex-col overflow-hidden rounded-[3px] border border-white/15 shadow-[0_40px_90px_-25px_rgba(0,0,0,0.9)]"
+            initial={reduce ? undefined : { opacity: 0, y: 14, scale: 0.985 }}
+            animate={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
+            exit={reduce ? undefined : { opacity: 0, y: 10, scale: 0.99 }}
+            transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {/* header — close button stays visible while the body scrolls */}
+            <div className="flex shrink-0 items-start justify-between gap-5 border-b border-white/15 px-5 py-5 sm:px-8">
+              <div className="min-w-0">
+                <span className="label text-safety">Section 05 · Safety &amp; Health</span>
+                <h2
+                  id="safety-committee-title"
+                  className="display mt-2.5 text-[clamp(1.5rem,4vw,2.35rem)] text-bone"
+                >
+                  Safety Committee Organisation Chart
+                </h2>
+                <p className="mt-2.5 max-w-[64ch] text-[0.95rem] leading-[1.65] text-bone/70">
+                  Constituted per OSHA 1994 (Act 514) — chaired by the Managing Director with direct
+                  worker representation.
+                </p>
+              </div>
+              <button
+                ref={closeRef}
+                type="button"
+                onClick={onClose}
+                aria-label="Close safety committee chart"
+                className="flex h-11 w-11 shrink-0 items-center justify-center border border-white/25 text-bone transition-colors duration-200 hover:border-safety hover:text-safety"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+                  <path d="M6 6l12 12M18 6L6 18" />
+                </svg>
+              </button>
+            </div>
+
+            {/* body */}
+            <div className="min-h-0 flex-1 overflow-y-auto px-5 py-7 sm:px-8">
+              {/* ---- committee chart — copied from the DOSH presentation ---- */}
+              <div className="mt-1 overflow-x-auto pb-2">
+                <div className="mx-auto w-full min-w-[40rem] max-w-[44rem]">
+                  {/* chairman + committee secretary */}
+                  <div className="grid grid-cols-4">
+                    <div className="col-span-2 col-start-2 flex justify-center">
+                      <CommitteeCard
+                        variant="chair"
+                        title="Safety Committee Chairman"
+                        sub="MANAGING DIRECTOR · AHMAD NAZWAN MOHD SARBINI"
+                        className="w-[290px] py-2.5"
+                      />
+                    </div>
+                    <div className="col-start-4 flex items-end justify-center pt-8">
+                      <CommitteeCard
+                        variant="navy"
+                        title="Committee Secretary"
+                        sub="NUR MASTURA AIDA"
+                        className="w-[210px]"
+                      />
+                    </div>
+                  </div>
+
+                  {/* connectors — chairman down, branch to secretary, drop to four roles */}
+                  <div className="relative h-14 w-full" aria-hidden="true">
+                    <svg
+                      className="pointer-events-none absolute inset-0 h-full w-full"
+                      preserveAspectRatio="none"
+                    >
+                      <defs>
+                        <marker
+                          id="scm-arrow"
+                          viewBox="0 0 10 10"
+                          refX="6"
+                          refY="5"
+                          markerWidth="5"
+                          markerHeight="5"
+                          orient="auto-start-reverse"
+                        >
+                          <path d="M 0 0 L 10 5 L 0 10 z" fill="#f2b705" />
+                        </marker>
+                      </defs>
+                      <line x1="50%" y1="0" x2="50%" y2="60%" stroke="#f2b705" strokeWidth="1.4" />
+                      <line x1="50%" y1="22%" x2="87.5%" y2="22%" stroke="#f2b705" strokeWidth="1.4" />
+                      <line x1="12.5%" y1="60%" x2="87.5%" y2="60%" stroke="#f2b705" strokeWidth="1.4" />
+                      {[12.5, 37.5, 62.5, 87.5].map((x) => (
+                        <line
+                          key={x}
+                          x1={`${x}%`}
+                          y1="60%"
+                          x2={`${x}%`}
+                          y2="100%"
+                          stroke="#f2b705"
+                          strokeWidth="1.4"
+                          markerEnd="url(#scm-arrow)"
+                        />
+                      ))}
+                    </svg>
+                  </div>
+
+                  {/* management row */}
+                  <div className="grid grid-cols-4 gap-4">
+                    <CommitteeCard variant="deep" title="Project Manager" sub="WORKSHOP SAFETY OVERSIGHT" className="h-[58px]" />
+                    <CommitteeCard variant="navy" title="OSH Coordinator" sub="SAFETY OPERATION LEAD" className="h-[58px]" />
+                    <CommitteeCard variant="navy" title="QAQC / Engineering Manager" sub="QUALITY &amp; COMPLIANCE" className="h-[58px]" />
+                    <CommitteeCard variant="deep" title="Construction Manager" sub="SITE SAFETY OVERSIGHT" className="h-[58px]" />
+                  </div>
+
+                  {/* connectors — OSH Coordinator & QAQC down to supervisors */}
+                  <div className="relative h-11 w-full" aria-hidden="true">
+                    <svg
+                      className="pointer-events-none absolute inset-0 h-full w-full"
+                      preserveAspectRatio="none"
+                    >
+                      <line x1="37.5%" y1="0" x2="37.5%" y2="100%" stroke="#f2b705" strokeWidth="1.4" markerEnd="url(#scm-arrow)" />
+                      <line x1="62.5%" y1="0" x2="62.5%" y2="100%" stroke="#f2b705" strokeWidth="1.4" markerEnd="url(#scm-arrow)" />
+                    </svg>
+                  </div>
+
+                  {/* supervisors row */}
+                  <div className="grid grid-cols-4 gap-4">
+                    <div />
+                    <CommitteeCard variant="navy" title="Supervisor" sub="SITE SAFETY OVERSIGHT" className="h-[56px]" />
+                    <CommitteeCard variant="navy" title="Supervisor" sub="SITE SAFETY OVERSIGHT" className="h-[56px]" />
+                    <div />
+                  </div>
+
+                  {/* connectors — supervisors merge to all workers */}
+                  <div className="relative h-11 w-full" aria-hidden="true">
+                    <svg
+                      className="pointer-events-none absolute inset-0 h-full w-full"
+                      preserveAspectRatio="none"
+                    >
+                      <line x1="37.5%" y1="0" x2="37.5%" y2="55%" stroke="#f2b705" strokeWidth="1.4" />
+                      <line x1="62.5%" y1="0" x2="62.5%" y2="55%" stroke="#f2b705" strokeWidth="1.4" />
+                      <line x1="37.5%" y1="55%" x2="62.5%" y2="55%" stroke="#f2b705" strokeWidth="1.4" />
+                      <line x1="50%" y1="55%" x2="50%" y2="100%" stroke="#f2b705" strokeWidth="1.4" markerEnd="url(#scm-arrow)" />
+                    </svg>
+                  </div>
+
+                  {/* all workers + latest update */}
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <div className="col-span-1" />
+                    <div className="col-span-2 flex justify-center">
+                      <CommitteeCard variant="deep" title="All Workers" sub="SAFETY COMPLIANCE" className="h-[48px] w-[230px]" />
+                    </div>
+                    <div className="col-span-1 flex justify-end">
+                      <div className="flex items-center gap-2 border border-white/15 bg-black/30 px-3 py-1.5">
+                        <span className="h-2 w-2 animate-pulse rounded-full bg-safety" aria-hidden="true" />
+                        <span className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.14em] text-bone/70">
+                          Latest update: <span className="text-safety">19/07/2026</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* ---- duties ---- */}
+              <div className="mt-9 border-l-2 border-safety bg-white/[0.04] px-5 py-4">
+                <span className="label text-safety">Committee duties</span>
+                <p className="mt-2.5 text-[0.95rem] leading-[1.7] text-bone/75">
+                  Review HIRARC results, toolbox talk topics, near-miss and unsafe-condition reports,
+                  PPE compliance and ERP drill findings — track every corrective action to closure and
+                  minute each meeting. Chaired by the Managing Director and coordinated by the
+                  Designated OSH Coordinator under OSHA 1994 (Act 514) and the Factories &amp;
+                  Machinery Act 1967.
+                </p>
+              </div>
+
+            </div>
+
+            {/* footer */}
+            <div className="flex shrink-0 flex-wrap items-center justify-between gap-4 border-t border-white/15 px-5 py-4 sm:px-8">
+              <span className="label text-bone/45">Safety &amp; Health · 05</span>
+              <button
+                type="button"
+                onClick={onClose}
+                className="inline-flex items-center justify-center gap-2 border border-white/25 px-6 py-3 font-display text-[1.1rem] uppercase leading-none tracking-[0.06em] text-bone transition-colors duration-200 hover:border-safety hover:text-safety"
+              >
+                Close
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Company Background & Profile — opens from the header logo button    */
 /* ------------------------------------------------------------------ */
 const PROFILE_PARTICULARS: [string, string][] = [

@@ -669,6 +669,16 @@ const DEMO_STEPS: [string, string, string][] = [
   ],
 ];
 
+/* The Quality Policy PDF lives in public/ and is served straight from the site root. */
+const QUALITY_POLICY_PDF = "/Quality%20Policy.pdf";
+
+const QUALITY_POLICY_META: [string, string][] = [
+  ["Issued by", "Freeskills Engineering (M) Sdn Bhd"],
+  ["Applies to", "Alteration, repair, inspection, testing & certification work"],
+  ["Format", "PDF · hosted on this site"],
+  ["Access", "Free to read · no login required"],
+];
+
 export function QMS() {
   const [showDemo, setShowDemo] = useState(false);
 
@@ -779,6 +789,101 @@ export function QMS() {
               SPECIFICATIONS, TEST RESULTS AND CERTIFICATES. EVERY JOB FILE STAYS THERE, IN ORDER,
               FROM DEFECT LIST TO SIGNED-OFF HANDOVER.
             </p>
+          </div>
+        </div>
+
+        {/* quality policy — the statement the system is written against */}
+        <div className="mt-16 grid items-start gap-10 border-t border-white/15 pt-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:gap-16">
+          <div>
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <span className="label text-safety">Quality policy · published document</span>
+              <span className="label text-bone/45">PDF · opens in a new tab</span>
+            </div>
+            <h3 className="display mt-4 text-[clamp(1.6rem,3.4vw,2.4rem)]">
+              The <span className="text-safety">Quality Policy</span> we work to
+            </h3>
+            <p className="mt-5 max-w-[58ch] text-[0.98rem] leading-[1.72] text-bone/75">
+              Our Quality Policy is the statement underneath everything on this page — what
+              Freeskills Engineering commits to on workmanship, statutory compliance and the
+              continual improvement of our Quality Management System. It is issued as a
+              controlled document and published here, so clients, auditors and tender
+              evaluators can read it for themselves.
+            </p>
+
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <a
+                href={QUALITY_POLICY_PDF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 bg-safety px-7 py-4 font-display text-[1.2rem] uppercase leading-none tracking-[0.06em] text-steel-900 transition-colors duration-200 hover:bg-bone"
+              >
+                Read the quality policy
+                <svg
+                  viewBox="0 0 16 16"
+                  aria-hidden="true"
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5.5 10.5L10.5 5.5M6.5 5.5h4v4" />
+                </svg>
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+              <a
+                href={QUALITY_POLICY_PDF}
+                download
+                className="inline-flex items-center justify-center gap-3 border border-white/25 px-6 py-4 font-display text-[1.15rem] uppercase leading-none tracking-[0.06em] text-bone transition-colors duration-200 hover:border-safety hover:text-safety"
+              >
+                Download PDF
+                <svg
+                  viewBox="0 0 16 16"
+                  aria-hidden="true"
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M8 3v8M4.5 7.5L8 11l3.5-3.5M3.5 13h9" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* document cover — reads like the cover sheet of the PDF */}
+          <div className="border border-white/12 bg-steel-800/50 p-6 sm:p-7">
+            <div className="flex items-start justify-between gap-4">
+              <svg
+                viewBox="0 0 24 24"
+                className="h-9 w-9 text-safety"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+                <path d="M14 3v5h5" />
+                <path d="M8.5 13h7M8.5 16.5h4.5" />
+              </svg>
+              <span className="label text-bone/45">PDF</span>
+            </div>
+            <p className="mt-5 font-display text-[1.55rem] uppercase leading-tight tracking-[0.02em] text-bone">
+              Quality Policy
+            </p>
+            <dl className="mt-5 border-t border-white/10 pt-4">
+              {QUALITY_POLICY_META.map(([k, v]) => (
+                <div key={k} className="grid grid-cols-1 gap-x-4 py-2 sm:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)]">
+                  <dt className="label pt-1 text-bone/45">{k}</dt>
+                  <dd className="text-[0.88rem] leading-[1.6] text-bone/75">{v}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
 

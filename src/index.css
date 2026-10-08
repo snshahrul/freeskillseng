@@ -164,3 +164,74 @@ button:focus-visible {
   transform-origin: left center;
   animation: ruleDraw 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* --- print: only the Quality Policy prints, as ink on white paper --- */
+@media print {
+  @page {
+    margin: 18mm 16mm;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  /* hide the whole site chrome and every other section ... */
+  body * {
+    visibility: hidden;
+  }
+
+  /* ... except the policy block and everything inside it */
+  #quality-policy,
+  #quality-policy * {
+    visibility: visible;
+  }
+
+  #quality-policy {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-top: 0 !important;
+    background: #fff !important;
+    color: #22262a !important;
+    scroll-margin-top: 0;
+  }
+
+  /* the on-screen theme is light-on-dark — flip it for paper */
+  #quality-policy,
+  #quality-policy h3,
+  #quality-policy h4,
+  #quality-policy p,
+  #quality-policy li,
+  #quality-policy span {
+    color: #22262a !important;
+  }
+
+  #quality-policy .label {
+    color: #7c847f !important;
+  }
+
+  #quality-policy .text-safety,
+  #quality-policy li .label {
+    color: #a31c0d !important;
+  }
+
+  #quality-policy [class*="border"] {
+    border-color: #dcd5c8 !important;
+  }
+
+  #quality-policy [class*="bg-"] {
+    background: transparent !important;
+  }
+
+  #quality-policy li,
+  #quality-policy p {
+    break-inside: avoid;
+  }
+
+  h3 {
+    break-after: avoid;
+  }
+}

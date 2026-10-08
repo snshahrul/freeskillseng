@@ -669,14 +669,33 @@ const DEMO_STEPS: [string, string, string][] = [
   ],
 ];
 
-/* The Quality Policy PDF lives in public/ and is served straight from the site root. */
-const QUALITY_POLICY_PDF = "/Quality%20Policy.pdf";
-
-const QUALITY_POLICY_META: [string, string][] = [
-  ["Issued by", "Freeskills Engineering (M) Sdn Bhd"],
-  ["Applies to", "Alteration, repair, inspection, testing & certification work"],
-  ["Format", "PDF · hosted on this site"],
-  ["Access", "Free to read · no login required"],
+/* Section 1.0 of the QA/QC manual — the five pledges, verbatim. */
+const QUALITY_POLICY_PLEDGES: [string, string, string][] = [
+  [
+    "01",
+    "Safety First",
+    "Prioritize the safety of our personnel, the public, and the environment in all repair and fabrication activities, strictly adhering to DOSH (Department of Occupational Safety and Health, Malaysia) and Factories and Machinery Act (FMA) 1967 requirements.",
+  ],
+  [
+    "02",
+    "Regulatory Compliance",
+    "Ensure all repairs and fabrications comply with the relevant sections of the ASME Code and BS EN Standards.",
+  ],
+  [
+    "03",
+    "Customer Satisfaction",
+    "Understand and meet customer requirements fully, aiming to exceed their expectations regarding project timelines, quality, and budget.",
+  ],
+  [
+    "04",
+    "Continuous Improvement",
+    "Continuously improve the effectiveness of our Quality Management System through measurable objectives, regular audits, and management reviews.",
+  ],
+  [
+    "05",
+    "Competence",
+    "Ensure all welders, supervisors, and NDT technicians are suitably qualified and certified for the specific tasks they undertake.",
+  ],
 ];
 
 export function QMS() {
@@ -792,99 +811,105 @@ export function QMS() {
           </div>
         </div>
 
-        {/* quality policy — the statement the system is written against */}
-        <div className="mt-16 grid items-start gap-10 border-t border-white/15 pt-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:gap-16">
-          <div>
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <span className="label text-safety">Quality policy · published document</span>
-              <span className="label text-bone/45">PDF · opens in a new tab</span>
-            </div>
-            <h3 className="display mt-4 text-[clamp(1.6rem,3.4vw,2.4rem)]">
+        {/* quality policy — Section 1.0 of the QA/QC manual, printed on the page */}
+        <div
+          id="quality-policy"
+          className="mt-16 scroll-mt-24 border-t border-white/15 pt-10"
+        >
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <span className="label text-safety">Section 1.0 · Quality Policy</span>
+            <span className="label text-bone/45">QA/QC manual · communicated to all</span>
+          </div>
+          <div className="mt-4 flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
+            <h3 className="display text-[clamp(1.6rem,3.4vw,2.4rem)]">
               The <span className="text-safety">Quality Policy</span> we work to
             </h3>
-            <p className="mt-5 max-w-[58ch] text-[0.98rem] leading-[1.72] text-bone/75">
-              Our Quality Policy is the statement underneath everything on this page — what
-              Freeskills Engineering commits to on workmanship, statutory compliance and the
-              continual improvement of our Quality Management System. It is issued as a
-              controlled document and published here, so clients, auditors and tender
-              evaluators can read it for themselves.
-            </p>
-
-            <div className="mt-7 flex flex-wrap items-center gap-3">
-              <a
-                href={QUALITY_POLICY_PDF}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-3 bg-safety px-7 py-4 font-display text-[1.2rem] uppercase leading-none tracking-[0.06em] text-steel-900 transition-colors duration-200 hover:bg-bone"
-              >
-                Read the quality policy
-                <svg
-                  viewBox="0 0 16 16"
-                  aria-hidden="true"
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M5.5 10.5L10.5 5.5M6.5 5.5h4v4" />
-                </svg>
-                <span className="sr-only">(opens in a new tab)</span>
-              </a>
-              <a
-                href={QUALITY_POLICY_PDF}
-                download
-                className="inline-flex items-center justify-center gap-3 border border-white/25 px-6 py-4 font-display text-[1.15rem] uppercase leading-none tracking-[0.06em] text-bone transition-colors duration-200 hover:border-safety hover:text-safety"
-              >
-                Download PDF
-                <svg
-                  viewBox="0 0 16 16"
-                  aria-hidden="true"
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M8 3v8M4.5 7.5L8 11l3.5-3.5M3.5 13h9" />
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          {/* document cover — reads like the cover sheet of the PDF */}
-          <div className="border border-white/12 bg-steel-800/50 p-6 sm:p-7">
-            <div className="flex items-start justify-between gap-4">
+            <button
+              type="button"
+              onClick={() => window.print()}
+              className="print:hidden inline-flex items-center justify-center gap-3 border border-white/25 px-6 py-3.5 font-display text-[1.05rem] uppercase leading-none tracking-[0.06em] text-bone transition-colors duration-200 hover:border-safety hover:text-safety"
+            >
+              Print this policy as PDF
               <svg
-                viewBox="0 0 24 24"
-                className="h-9 w-9 text-safety"
+                viewBox="0 0 16 16"
+                aria-hidden="true"
+                className="h-4 w-4"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.4"
+                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                aria-hidden="true"
               >
-                <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
-                <path d="M14 3v5h5" />
-                <path d="M8.5 13h7M8.5 16.5h4.5" />
+                <path d="M4.5 6V2.5h7V6M4.5 12H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-1.5M4.5 9.5h7v4h-7z" />
               </svg>
-              <span className="label text-bone/45">PDF</span>
-            </div>
-            <p className="mt-5 font-display text-[1.55rem] uppercase leading-tight tracking-[0.02em] text-bone">
-              Quality Policy
-            </p>
-            <dl className="mt-5 border-t border-white/10 pt-4">
-              {QUALITY_POLICY_META.map(([k, v]) => (
-                <div key={k} className="grid grid-cols-1 gap-x-4 py-2 sm:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)]">
-                  <dt className="label pt-1 text-bone/45">{k}</dt>
-                  <dd className="text-[0.88rem] leading-[1.6] text-bone/75">{v}</dd>
-                </div>
-              ))}
-            </dl>
+            </button>
           </div>
+
+          <p className="mt-6 max-w-[62ch] text-[1.05rem] leading-[1.75] text-bone/85">
+            Freeskills Engineering (M) Sdn Bhd is committed to delivering safe, reliable,
+            and high-quality new, repair, maintenance, and fabrication services for
+            pressure vessels.
+          </p>
+          <p className="mt-4 font-display text-[1.35rem] uppercase tracking-[0.02em] text-bone">
+            To achieve this, we pledge to:
+          </p>
+
+          <ol className="mt-6 border-t border-white/15">
+            {QUALITY_POLICY_PLEDGES.map(([n, title, body]) => (
+              <li
+                key={n}
+                className="grid grid-cols-1 gap-x-8 gap-y-2 border-b border-white/10 py-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]"
+              >
+                <div className="flex items-baseline gap-4">
+                  <span className="label tnum text-safety">{n}</span>
+                  <h4 className="font-display text-[1.35rem] uppercase leading-[1.1] tracking-[0.015em]">
+                    {title}
+                  </h4>
+                </div>
+                <p className="max-w-[54ch] text-[0.92rem] leading-[1.7] text-bone/75">{body}</p>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:gap-14">
+            <div>
+              <p className="max-w-[62ch] text-[0.98rem] leading-[1.72] text-bone/75">
+                This policy is communicated to all employees and is reviewed annually for
+                continuing suitability.
+              </p>
+              <p className="mt-5 border-l-2 border-safety bg-white/[0.03] px-5 py-4 font-mono text-[0.72rem] leading-[1.9] tracking-[0.05em] text-bone/65">
+                NOTE — ISO 9001:2015 CLAUSE 5.2: THE QUALITY POLICY MUST BE COMMUNICATED,
+                UNDERSTOOD, AND APPLIED THROUGHOUT THE ORGANIZATION. REFER TO SECTION 15.0
+                FOR TRAINING AND COMMUNICATION RECORDS.
+              </p>
+            </div>
+
+            {/* approval block — mirrors the signature panel of the manual */}
+            <div className="border border-white/12 bg-steel-800/50 p-6">
+              <span className="label text-bone/45">Approved by</span>
+              <p className="mt-4 font-display text-[1.3rem] uppercase leading-tight tracking-[0.02em] text-bone">
+                Freeskills Engineering (M) Sdn Bhd
+              </p>
+              <div className="mt-6 border-t border-white/15 pt-4">
+                <div className="grid grid-cols-1 gap-x-4 py-1.5 sm:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)]">
+                  <span className="label pt-1 text-bone/45">Name</span>
+                  <span className="text-[0.92rem] leading-[1.6] text-bone/85">Nazwan Sarbini</span>
+                </div>
+                <div className="grid grid-cols-1 gap-x-4 py-1.5 sm:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)]">
+                  <span className="label pt-1 text-bone/45">Designation</span>
+                  <span className="text-[0.92rem] leading-[1.6] text-bone/85">Managing Director</span>
+                </div>
+                <div className="grid grid-cols-1 gap-x-4 py-1.5 sm:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)]">
+                  <span className="label pt-1 text-bone/45">Date</span>
+                  <span className="text-[0.92rem] leading-[1.6] text-bone/85">_______________</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p className="mt-7 font-mono text-[0.7rem] uppercase leading-relaxed tracking-[0.12em] text-bone/45">
+            Freeskills Engineering (M) Sdn Bhd · QA/QC manual · Section 1.0 — Quality Policy
+          </p>
         </div>
 
         {/* code list — the code books Freeskills owns */}

@@ -188,8 +188,10 @@ const INFRA_ITEMS: [string, string][] = [
   ["Calibrated inspection", "thickness survey and flaw detection with reference blocks, in-house"],
 ];
 
+type InfraPhoto = { src: string; alt: string; caption: string; w: number; h: number };
+
 /* Shop-floor photos — served from public/ (spaces are URL-encoded). */
-const INFRA_PHOTOS: { src: string; alt: string; caption: string; w: number; h: number }[] = [
+const INFRA_PHOTOS: InfraPhoto[] = [
   {
     src: "laser%20cutter.jpg",
     alt: "CNC laser cutter at the Freeskills Engineering workshop, Menglembu",
@@ -225,6 +227,50 @@ const INFRA_PHOTOS: { src: string; alt: string; caption: string; w: number; h: n
     w: 355,
     h: 261,
   },
+];
+
+/* Site-work photos — fabrication and erection work off the shop floor. */
+const SITE_WORK_PHOTOS: InfraPhoto[] = [
+  {
+    src: "Tank%20Fabrication.jpg",
+    alt: "Tank fabrication by Freeskills Engineering",
+    caption: "Tank fabrication",
+    w: 1040,
+    h: 780,
+  },
+  {
+    src: "Chimny%20Facrication.jpg",
+    alt: "Chimney fabrication by Freeskills Engineering",
+    caption: "Chimney fabrication",
+    w: 1020,
+    h: 459,
+  },
+  {
+    src: "Chimmy%20ducting.jpg",
+    alt: "Chimney ducting by Freeskills Engineering",
+    caption: "Chimney ducting",
+    w: 1040,
+    h: 780,
+  },
+  {
+    src: "steel%20structure%20erection.jpg",
+    alt: "Steel structure erection by Freeskills Engineering",
+    caption: "Steel structure erection",
+    w: 1280,
+    h: 960,
+  },
+  {
+    src: "steel%20structure%20erection%201.jpg",
+    alt: "Steel structure erection by Freeskills Engineering",
+    caption: "Steel structure erection",
+    w: 1280,
+    h: 960,
+  },
+];
+
+const INFRA_PHOTO_GROUPS: { title: string; photos: InfraPhoto[] }[] = [
+  { title: "From the shop floor", photos: INFRA_PHOTOS },
+  { title: "Site Work", photos: SITE_WORK_PHOTOS },
 ];
 
 export function Capability() {
@@ -347,27 +393,34 @@ export function Capability() {
             </div>
           </div>
 
-          {/* shop-floor gallery — five photos from the bays */}
+          {/* photo galleries — shop floor + site work */}
           <div className="border-t border-white/10 p-7 sm:p-10">
-            <div className="flex items-center gap-3">
-              <span className="label text-safety">From the shop floor</span>
-              <span className="h-px flex-1 bg-white/15" aria-hidden="true" />
-            </div>
-            <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-              {INFRA_PHOTOS.map((p) => (
-                <figure key={p.src} className="min-w-0">
-                  <img
-                    src={p.src}
-                    alt={p.alt}
-                    width={p.w}
-                    height={p.h}
-                    loading="lazy"
-                    className="aspect-[4/3] w-full rounded-[4px] border border-white/15 object-cover shadow-[0_24px_50px_-28px_rgba(0,0,0,0.9)] transition-colors duration-200 hover:border-safety/60"
-                  />
-                  <figcaption className="label mt-2.5 text-bone/55">{p.caption}</figcaption>
-                </figure>
-              ))}
-            </div>
+            {INFRA_PHOTO_GROUPS.map((group, gi) => (
+              <div
+                key={group.title}
+                className={gi > 0 ? "mt-9 border-t border-white/10 pt-8" : undefined}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="label text-safety">{group.title}</span>
+                  <span className="h-px flex-1 bg-white/15" aria-hidden="true" />
+                </div>
+                <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+                  {group.photos.map((p) => (
+                    <figure key={p.src} className="min-w-0">
+                      <img
+                        src={p.src}
+                        alt={p.alt}
+                        width={p.w}
+                        height={p.h}
+                        loading="lazy"
+                        className="aspect-[4/3] w-full rounded-[4px] border border-white/15 object-cover shadow-[0_24px_50px_-28px_rgba(0,0,0,0.9)] transition-colors duration-200 hover:border-safety/60"
+                      />
+                      <figcaption className="label mt-2.5 text-bone/55">{p.caption}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

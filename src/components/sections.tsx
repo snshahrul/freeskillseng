@@ -188,6 +188,45 @@ const INFRA_ITEMS: [string, string][] = [
   ["Calibrated inspection", "thickness survey and flaw detection with reference blocks, in-house"],
 ];
 
+/* Shop-floor photos — served from public/ (spaces are URL-encoded). */
+const INFRA_PHOTOS: { src: string; alt: string; caption: string; w: number; h: number }[] = [
+  {
+    src: "laser%20cutter.jpg",
+    alt: "CNC laser cutter at the Freeskills Engineering workshop, Menglembu",
+    caption: "Laser cutting",
+    w: 260,
+    h: 190,
+  },
+  {
+    src: "Fab%20Layout%20C.jpg",
+    alt: "Plate rolling machine at the Freeskills Engineering workshop, Menglembu",
+    caption: "Rolling machine",
+    w: 1280,
+    h: 960,
+  },
+  {
+    src: "12.png",
+    alt: "Milling machine with digital readout at the Freeskills Engineering workshop",
+    caption: "Milling machine",
+    w: 297,
+    h: 398,
+  },
+  {
+    src: "13.jpg",
+    alt: "Precision lathe at the Freeskills Engineering workshop",
+    caption: "Lathe machine",
+    w: 273,
+    h: 389,
+  },
+  {
+    src: "B.jpg",
+    alt: "Bay workstation in the covered bays at the Freeskills Engineering workshop",
+    caption: "Bay workstation",
+    w: 355,
+    h: 261,
+  },
+];
+
 export function Capability() {
   return (
     <section id="capability" className="paper-rule relative scroll-mt-20 bg-paper text-ink">
@@ -305,6 +344,29 @@ export function Capability() {
                 className="w-full max-w-[22rem] rounded-[4px] border border-white/15 object-cover shadow-[0_24px_50px_-28px_rgba(0,0,0,0.9)]"
               />
               <p className="label text-bone/55">Lot 02 · front view facility</p>
+            </div>
+          </div>
+
+          {/* shop-floor gallery — five photos from the bays */}
+          <div className="border-t border-white/10 p-7 sm:p-10">
+            <div className="flex items-center gap-3">
+              <span className="label text-safety">From the shop floor</span>
+              <span className="h-px flex-1 bg-white/15" aria-hidden="true" />
+            </div>
+            <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+              {INFRA_PHOTOS.map((p) => (
+                <figure key={p.src} className="min-w-0">
+                  <img
+                    src={p.src}
+                    alt={p.alt}
+                    width={p.w}
+                    height={p.h}
+                    loading="lazy"
+                    className="aspect-[4/3] w-full rounded-[4px] border border-white/15 object-cover shadow-[0_24px_50px_-28px_rgba(0,0,0,0.9)] transition-colors duration-200 hover:border-safety/60"
+                  />
+                  <figcaption className="label mt-2.5 text-bone/55">{p.caption}</figcaption>
+                </figure>
+              ))}
             </div>
           </div>
         </div>

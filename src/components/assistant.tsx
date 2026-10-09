@@ -166,15 +166,15 @@ export function Assistant() {
           onClick={() => setOpenState(true)}
           aria-haspopup="dialog"
           aria-label="Ask the Freeskills assistant"
-          className="plate grain group fixed bottom-4 right-4 z-[60] flex h-14 w-14 items-center justify-center border border-white/20 text-bone shadow-[0_22px_45px_-18px_rgba(0,0,0,0.95)] transition-colors duration-200 hover:border-safety hover:text-safety sm:bottom-6 sm:right-6"
+          className="plate grain group fixed bottom-4 right-4 z-[60] flex h-16 w-16 items-center justify-center rounded-full border-2 border-oxide/70 text-bone shadow-[0_22px_45px_-14px_rgba(0,0,0,0.95)] transition-colors duration-200 hover:border-safety hover:text-safety sm:bottom-6 sm:right-6"
         >
-          <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M21 12a8 8 0 0 1-8 8H7l-4 3v-4.6A8 8 0 0 1 3 12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8z" />
             <path d="M8.5 11h.01M12 11h.01M15.5 11h.01" />
           </svg>
           <span
             aria-hidden="true"
-            className="absolute -right-1 -top-1 h-3 w-3 rounded-full border border-steel-900 bg-safety"
+            className="absolute right-1 top-1 h-3.5 w-3.5 rounded-full border-2 border-steel-900 bg-safety"
           />
         </button>
       )}

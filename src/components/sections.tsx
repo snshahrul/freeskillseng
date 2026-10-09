@@ -2,6 +2,7 @@ import { Fragment, type ReactNode, useState } from "react";
 import { motion } from "framer-motion";
 import { Nameplate, OrgChartModal, Reveal, SafetyCommitteeModal, StampedLabel } from "./graphics";
 import { LocationMap } from "./map";
+import { MethodStatementButton } from "./method-statement";
 
 /* ================================================================== */
 /*  HERO                                                               */
@@ -892,9 +893,11 @@ export function QMS() {
                 </svg>
                 <span className="sr-only">(opens in a new tab)</span>
               </a>
+              <MethodStatementButton />
             </div>
             <p className="mt-4 font-mono text-[0.72rem] uppercase leading-relaxed tracking-[0.14em] text-bone/50">
-              qmc.freeskillengineering.com · cloud sync &amp; PDF reports
+              qmc.freeskillengineering.com · cloud sync &amp; PDF reports · sample method statement
+              on request
             </p>
           </div>
 

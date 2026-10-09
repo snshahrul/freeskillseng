@@ -10,13 +10,15 @@ interface Msg {
 }
 
 const GREETING =
-  "Hello — ask me about Freeskills Engineering: what we repair, the workshop and equipment, quality and safety, or how to get a written quote.";
+  "Hello — ask me about Freeskills Engineering: our company background, what we repair, the workshop and equipment, the Quality Management Center, safety and health, or how to get a written quote.";
 
 const SUGGESTIONS: [string, string][] = [
   ["What do you repair?", "What kinds of equipment do you repair?"],
-  ["On-site shutdown crews?", "Do you send crews for on-site shutdown and breakdown work?"],
+  ["How do I use the Quality Management Center?", "How does my team use the Quality Management Center, and how do we get access?"],
+  ["What is your safety policy?", "What is your safety and health policy?"],
+  ["Tell me about the company", "Tell me about Freeskills Engineering's background."],
   ["How do I get a quote?", "How do I get a written quote?"],
-  ["Where is the workshop?", "Where is your workshop and what are your opening hours?"],
+  ["On-site shutdown crews?", "Do you send crews for on-site shutdown and breakdown work?"],
 ];
 
 let counter = 0;

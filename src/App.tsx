@@ -11,6 +11,7 @@ import {
   Works,
 } from "./components/sections";
 import { CompanyProfileModal } from "./components/graphics";
+import { Assistant } from "./components/assistant";
 
 const NAV: [string, string][] = [
   ["Capability", "#capability"],
@@ -494,6 +495,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <Assistant />
     </div>
   );
 }
